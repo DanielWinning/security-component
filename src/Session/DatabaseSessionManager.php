@@ -4,7 +4,7 @@ namespace Luma\SecurityComponent\Session;
 
 use Luma\SecurityComponent\Interface\SessionManagerInterface;
 
-class SessionManager implements SessionManagerInterface
+class DatabaseSessionManager implements SessionManagerInterface
 {
     /**
      * @return void
@@ -27,11 +27,11 @@ class SessionManager implements SessionManagerInterface
 
     /**
      * @param string $key
-     * @param int|string $value
+     * @param mixed $value
      *
      * @return void
      */
-    public static function setSessionItem(string $key, int|string $value): void
+    public static function setSessionItem(string $key, mixed $value): void
     {
         $_SESSION[$key] = $value;
     }
@@ -39,9 +39,9 @@ class SessionManager implements SessionManagerInterface
     /**
      * @param string $key
      *
-     * @return int|string|null
+     * @return mixed
      */
-    public static function getSessionItem(string $key): int|string|null
+    public static function getSessionItem(string $key): mixed
     {
         return $_SESSION[$key] ?? null;
     }

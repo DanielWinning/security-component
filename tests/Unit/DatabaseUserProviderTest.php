@@ -2,9 +2,10 @@
 
 namespace Luma\Tests\Unit;
 
-use Luma\SecurityComponent\Authentication\DatabaseUserProvider;
+use Luma\SecurityComponent\Authentication\Providers\DatabaseUserProvider;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
 use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Session\DatabaseSessionManager;
 use Luma\Tests\Classes\InvalidUser;
 use Luma\Tests\Classes\InvalidUserWithoutAurora;
 use Luma\Tests\Classes\InvalidUserWithoutUI;
@@ -74,6 +75,32 @@ class DatabaseUserProviderTest extends SecurityComponentUnitTest
 
         $this->assertEquals('Danny', $user->getUsername());
         $this->assertEquals(4, $user->getId());
+    }
+
+    /**
+     * @return void
+     */
+    public function testItRetrievesUserFromSessionById(): void
+    {
+        DatabaseSessionManager::setSessionItem('user', User::find(4));
+
+        $databaseUserProvider = new DatabaseUserProvider(User::class);
+
+        $this->assertEquals('Danny', $databaseUserProvider->loadById(4)->getUsername());
+    }
+
+    /**
+     * @return void
+     *
+     * @throws InvalidUserModelException|\ReflectionException
+     */
+    public function testItRetrievesUserFromSessionByUsername(): void
+    {
+        DatabaseSessionManager::setSessionItem('user', User::find(4));
+
+        $databaseUserProvider = new DatabaseUserProvider(User::class);
+
+        $this->assertEquals(4, $databaseUserProvider->loadUserByUsername('Danny')->getId());
     }
 
     /**

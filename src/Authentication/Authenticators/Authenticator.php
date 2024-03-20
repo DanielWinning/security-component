@@ -1,7 +1,8 @@
 <?php
 
-namespace Luma\SecurityComponent\Authentication;
+namespace Luma\SecurityComponent\Authentication\Authenticators;
 
+use Luma\SecurityComponent\Authentication\AuthenticationResult;
 use Luma\SecurityComponent\Interface\AuthenticatorInterface;
 use Luma\SecurityComponent\Interface\UserProviderInterface;
 

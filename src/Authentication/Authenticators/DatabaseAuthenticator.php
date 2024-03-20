@@ -1,6 +1,8 @@
 <?php
 
-namespace Luma\SecurityComponent\Authentication;
+namespace Luma\SecurityComponent\Authentication\Authenticators;
+
+use Luma\SecurityComponent\Authentication\AuthenticationResult;
 
 class DatabaseAuthenticator extends Authenticator
 {

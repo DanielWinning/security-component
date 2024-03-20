@@ -2,9 +2,8 @@
 
 namespace Luma\Tests\Unit;
 
-use Luma\SecurityComponent\Authentication\DatabaseAuthenticator;
-use Luma\SecurityComponent\Authentication\DatabaseUserProvider;
-use Luma\SecurityComponent\Authentication\Password;
+use Luma\SecurityComponent\Authentication\Authenticators\DatabaseAuthenticator;
+use Luma\SecurityComponent\Authentication\Providers\DatabaseUserProvider;
 use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;

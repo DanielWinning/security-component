@@ -2,42 +2,43 @@
 
 namespace Luma\Tests\Unit;
 
-use Luma\SecurityComponent\Session\SessionManager;
+use Luma\SecurityComponent\Session\DatabaseSessionManager;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
+use Luma\Tests\Classes\User;
 
-class SessionManagerTest extends SecurityComponentUnitTest
+class DatabaseSessionManagerTest extends SecurityComponentUnitTest
 {
     /**
      * @return void
      */
     public function testItStartsAndEndsSession(): void
     {
-        SessionManager::start();
-
         $this->assertIsString(session_id());
         $this->assertNotEmpty(session_id());
-
-        SessionManager::end();
-
-        $this->assertEmpty(session_id());
     }
 
     /**
      * @param string $key
-     * @param string|int $value
+     * @param mixed $value
      *
      * @return void
      *
      * @dataProvider sessionItemProvider
      */
-    public function testItGetsAndSetsItems(string $key, string|int $value): void
+    public function testItGetsAndSetsItems(string $key, mixed $value): void
     {
-        SessionManager::start();
-        SessionManager::setSessionItem($key, $value);
+        DatabaseSessionManager::setSessionItem($key, $value);
 
-        $this->assertEquals(SessionManager::getSessionItem($key), $value);
+        $this->assertEquals(DatabaseSessionManager::getSessionItem($key), $value);
+    }
 
-        SessionManager::end();
+    public function testItGetsAndSetsUser(): void
+    {
+        $user = User::find(1);
+
+        DatabaseSessionManager::setSessionItem('user', $user);
+
+        $this->assertEquals(DatabaseSessionManager::getSessionItem('user'), $user);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Luma\SecurityComponent\Authentication;
+namespace Luma\SecurityComponent\Authentication\Providers;
 
 use Luma\AuroraDatabase\Attributes\Column;
 use Luma\AuroraDatabase\Model\Aurora;
@@ -8,6 +8,7 @@ use Luma\SecurityComponent\Attributes\Username;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
 use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\SecurityComponent\Interface\UserProviderInterface;
+use Luma\SecurityComponent\Session\DatabaseSessionManager;
 
 class DatabaseUserProvider implements UserProviderInterface
 {
@@ -32,6 +33,12 @@ class DatabaseUserProvider implements UserProviderInterface
      */
     public function loadById(int $id): ?UserInterface
     {
+        $userFromSession = DatabaseSessionManager::getSessionItem('user');
+
+        if ($userFromSession && $userFromSession->getId() === $id) {
+            return $userFromSession;
+        }
+
         return $this->userClass::find($id);
     }
 
@@ -44,7 +51,21 @@ class DatabaseUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername(string $username): UserInterface|null
     {
+        $userFromSession = DatabaseSessionManager::getSessionItem('user');
+
+        if ($userFromSession && $userFromSession->getUsername() === $username) {
+            return $userFromSession;
+        }
+
         return $this->userClass::findBy($this->getUsernameProperty(), $username);
+    }
+
+    /**
+     * @return UserInterface|null
+     */
+    public function getUserFromSession(): ?UserInterface
+    {
+        return DatabaseSessionManager::getSessionItem('user');
     }
 
     /**
