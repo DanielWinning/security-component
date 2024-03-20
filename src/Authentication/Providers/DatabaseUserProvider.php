@@ -33,7 +33,7 @@ class DatabaseUserProvider implements UserProviderInterface
      */
     public function loadById(int $id): ?UserInterface
     {
-        $userFromSession = DatabaseSessionManager::getSessionItem('user');
+        $userFromSession = self::getUserFromSession();
 
         if ($userFromSession && $userFromSession->getId() === $id) {
             return $userFromSession;
@@ -51,7 +51,7 @@ class DatabaseUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername(string $username): UserInterface|null
     {
-        $userFromSession = DatabaseSessionManager::getSessionItem('user');
+        $userFromSession = self::getUserFromSession();
 
         if ($userFromSession && $userFromSession->getUsername() === $username) {
             return $userFromSession;
