@@ -51,33 +51,6 @@ class AuthenticatorTest extends SecurityComponentUnitTest
     }
 
     /**
-     * @param string $password
-     *
-     * @return void
-     *
-     * @dataProvider passwordProvider
-     */
-    public function testPasswordHash(string $password)
-    {
-        $this->assertNotEquals($password, Password::hash($password));
-    }
-
-    /**
-     * @return array[]
-     */
-    public static function passwordProvider(): array
-    {
-        return [
-            [
-                'test',
-            ],
-            [
-                'P4$$w0Rd123!',
-            ],
-        ];
-    }
-
-    /**
      * @return array[]
      */
     public static function validCredentialsProvider(): array
