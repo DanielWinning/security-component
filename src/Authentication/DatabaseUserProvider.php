@@ -2,29 +2,63 @@
 
 namespace Luma\SecurityComponent\Authentication;
 
-use Luma\AuroraDatabase\DatabaseConnection;
-use Luma\SecurityComponent\Authentication\Interface\UserInterface;
-use Luma\SecurityComponent\Authentication\Interface\UserProviderInterface;
+use Luma\AuroraDatabase\Model\Aurora;
+use Luma\SecurityComponent\Exception\InvalidUserModelException;
+use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Interface\UserProviderInterface;
 
 class DatabaseUserProvider implements UserProviderInterface
 {
-    private DatabaseConnection $databaseConnection;
-    private string $databaseTable;
-    private string $userClass;
+    private Aurora&UserInterface $userClass;
 
-    public function __construct(DatabaseConnection $databaseConnection, string $userClass, string $databaseTable)
+    /**
+     * @param string $userClass
+     *
+     * @throws \Exception
+     */
+    public function __construct(string $userClass)
     {
-        if (!in_array(UserInterface::class, class_implements($userClass))) {
-            throw new \InvalidArgumentException(sprintf('%s must implement UserInterface.', $userClass));
-        }
+        $this->validateUserClass($userClass);
 
-        $this->databaseConnection = $databaseConnection;
-        $this->databaseTable = $databaseTable;
-        $this->userClass = $userClass;
+        $this->userClass = new $userClass;
     }
 
-    public function loadUserByUsername(string $username): ?UserInterface
+    /**
+     * @param int $id
+     *
+     * @return UserInterface|null
+     */
+    public function loadById(int $id): ?UserInterface
     {
-        // TODO: Implement loadUserByUsername() method.
+        return $this->userClass::find($id);
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return UserInterface|null
+     *
+     * @throws \ReflectionException
+     */
+    public function loadUserByUsername(string $username): UserInterface|null
+    {
+        return $this->userClass::findBy($this->userClass::getUsernameProperty(), $username);
+    }
+
+    /**
+     * @param string $userClass
+     *
+     * @return void
+     *
+     * @throws InvalidUserModelException
+     */
+    private function validateUserClass(string $userClass): void
+    {
+        $isAurora = in_array(Aurora::class, class_parents($userClass));
+        $implementsUserInterface = in_array(UserInterface::class, class_implements($userClass));
+
+        if (!$isAurora || !$implementsUserInterface) {
+            throw new InvalidUserModelException($userClass);
+        }
     }
 }
