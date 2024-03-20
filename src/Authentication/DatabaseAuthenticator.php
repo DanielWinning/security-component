@@ -2,24 +2,22 @@
 
 namespace Luma\SecurityComponent\Authentication;
 
-use Luma\SecurityComponent\Interface\UserProviderInterface;
-
 class DatabaseAuthenticator extends Authenticator
 {
     /**
      * @param string $username
      * @param string $password
      *
-     * @return bool
+     * @return AuthenticationResult
      */
-    public function authenticate(string $username, string $password): bool
+    public function authenticate(string $username, string $password): AuthenticationResult
     {
         $user = $this->userProvider->loadUserByUsername($username);
 
         if (!$user) {
-            return false;
+            return new AuthenticationResult(false, null);
         }
 
-        return password_verify($password, $user->getPassword());
+        return new AuthenticationResult(password_verify($password, $user->getPassword()), $user);
     }
 }

@@ -5,6 +5,7 @@ namespace Luma\Tests\Unit;
 use Luma\SecurityComponent\Authentication\DatabaseAuthenticator;
 use Luma\SecurityComponent\Authentication\DatabaseUserProvider;
 use Luma\SecurityComponent\Authentication\Password;
+use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
 
@@ -30,24 +31,34 @@ class AuthenticatorTest extends SecurityComponentUnitTest
      */
     public function testItAuthenticates(string $username, string $password): void
     {
-        $this->assertTrue(
-            (new DatabaseAuthenticator(new DatabaseUserProvider(User::class)))->authenticate($username, $password)
-        );
+        $authenticationResult = (new DatabaseAuthenticator(new DatabaseUserProvider(User::class)))
+            ->authenticate($username, $password);
+
+        $this->assertTrue($authenticationResult->isAuthenticated());
+        $this->assertInstanceOf(UserInterface::class, $authenticationResult->getUser());
     }
 
     /**
      * @param string $username
      * @param string $password
+     * @param bool $userExists
      *
      * @return void
      *
      * @dataProvider invalidCredentialsProvider
      */
-    public function testItDoesNotAuthenticate(string $username, string $password): void
+    public function testItDoesNotAuthenticate(string $username, string $password, bool $userExists): void
     {
-        $this->assertFalse(
-            (new DatabaseAuthenticator(new DatabaseUserProvider(User::class)))->authenticate($username, $password)
-        );
+        $authenticationResult = (new DatabaseAuthenticator(new DatabaseUserProvider(User::class)))
+            ->authenticate($username, $password);
+
+        $this->assertFalse($authenticationResult->isAuthenticated());
+
+        if ($userExists) {
+            $this->assertInstanceOf(UserInterface::class, $authenticationResult->getUser());
+        } else {
+            $this->assertNull($authenticationResult->getUser());
+        }
     }
 
     /**
@@ -80,10 +91,12 @@ class AuthenticatorTest extends SecurityComponentUnitTest
             'User exists, incorrect password' => [
                 'username' => 'Danny',
                 'password' => 'password',
+                'userExists' => true,
             ],
             'User does not exist' => [
                 'username' => 'Test User',
                 'password' => 'password',
+                'userExists' => false,
             ],
         ];
     }

@@ -13,13 +13,19 @@ class UserMissingAttributes extends Aurora implements UserInterface
 {
     protected int $id;
 
+    /**
+     * @return string
+     */
     public function getUsername(): string
     {
-        // TODO: Implement getUsername() method.
+       return '';
     }
 
+    /**
+     * @return string
+     */
     public function getPassword(): string
     {
-        // TODO: Implement getPassword() method.
+        return '';
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Luma\SecurityComponent\Interface;
 
+use Luma\SecurityComponent\Authentication\AuthenticationResult;
+
 interface AuthenticatorInterface
 {
     /**
@@ -13,7 +15,7 @@ interface AuthenticatorInterface
      * @param string $username
      * @param string $password
      *
-     * @return bool
+     * @return AuthenticationResult
      */
-    public function authenticate(string $username, string $password): bool;
+    public function authenticate(string $username, string $password): AuthenticationResult;
 }
