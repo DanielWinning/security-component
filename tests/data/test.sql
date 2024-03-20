@@ -10,7 +10,9 @@ CREATE TABLE User (
     intUserId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     strUsername VARCHAR(60) NOT NULL,
     strEmailAddress VARCHAR(255) NOT NULL,
-    dtmCreated DATETIME NOT NULL DEFAULT NOW()
+    strPassword VARCHAR(255) NOT NULL,
+    dtmCreated DATETIME NOT NULL DEFAULT NOW(),
+    UNIQUE KEY (strEmailAddress)
 );
 
 CREATE TABLE AddressDetails (
@@ -22,11 +24,3 @@ CREATE TABLE AddressDetails (
     intUserId INT NOT NULL,
     FOREIGN KEY (intUserId) REFERENCES User(intUserId)
 );
-
-INSERT INTO User
-    (strUsername, strEmailAddress)
-VALUES
-    ('Andrew', 'andrew@test.com'),
-    ('Bella', 'bella@test.com'),
-    ('Charlie', 'charlie@test.com'),
-    ('Danny', 'danny@test.com');

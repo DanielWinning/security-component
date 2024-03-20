@@ -7,14 +7,26 @@ use Luma\SecurityComponent\Interface\UserInterface;
 
 class InvalidUserModelException extends \Exception
 {
-    public function __construct(string $userClass, ?\Throwable $previous = null)
+    /**
+     * @param string $userClass
+     * @param array|null $missingAttributes
+     *
+     * @param \Throwable|null $previous
+     */
+    public function __construct(string $userClass, array $missingAttributes = null, ?\Throwable $previous = null)
     {
-        $message = sprintf(
-            'The %s class must extend %s and implement %s',
-            $userClass,
-            Aurora::class,
-            UserInterface::class
-        );
+        $message = $missingAttributes
+            ? sprintf(
+                'Your %s class is missing the required attributes: %s',
+                $userClass,
+                implode(', ', $missingAttributes)
+            )
+            : sprintf(
+                'The %s class must extend %s and implement %s',
+                $userClass,
+                Aurora::class,
+                UserInterface::class
+            );
 
         parent::__construct($message, 0, $previous);
     }

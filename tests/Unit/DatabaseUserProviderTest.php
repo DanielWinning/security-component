@@ -2,37 +2,18 @@
 
 namespace Luma\Tests\Unit;
 
-use Dotenv\Dotenv;
-use Luma\AuroraDatabase\DatabaseConnection;
-use Luma\AuroraDatabase\Model\Aurora;
 use Luma\SecurityComponent\Authentication\DatabaseUserProvider;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
 use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\Tests\Classes\InvalidUser;
 use Luma\Tests\Classes\InvalidUserWithoutAurora;
 use Luma\Tests\Classes\InvalidUserWithoutUI;
+use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
-use PHPUnit\Framework\TestCase;
+use Luma\Tests\Classes\UserMissingAttributes;
 
-class DatabaseUserProviderTest extends TestCase
+class DatabaseUserProviderTest extends SecurityComponentUnitTest
 {
-    /**
-     * @return void
-     *
-     * @throws \Exception
-     */
-    public function setUp(): void
-    {
-        $dotenv = Dotenv::createImmutable(sprintf('%s/data', dirname(__DIR__)));
-        $dotenv->load();
-
-        Aurora::setDatabaseConnection(new DatabaseConnection(
-            sprintf('mysql:host=%s;port=%s', $_ENV['DATABASE_HOST'], $_ENV['DATABASE_PORT']),
-            $_ENV['DATABASE_USER'],
-            $_ENV['DATABASE_PASSWORD']
-        ));
-    }
-
     /**
      * @return void
      */
@@ -59,7 +40,7 @@ class DatabaseUserProviderTest extends TestCase
     /**
      * @return void
      *
-     * @throws \ReflectionException
+     * @throws \ReflectionException|InvalidUserModelException
      */
     public function testLoadByUsername(): void
     {
@@ -76,6 +57,11 @@ class DatabaseUserProviderTest extends TestCase
         $notExistingUser = $databaseUserProvider->loadUserByUsername('Gary');
 
         $this->assertNull($notExistingUser);
+
+        $databaseUserProvider = new DatabaseUserProvider(UserMissingAttributes::class);
+
+        $this->expectException(InvalidUserModelException::class);
+        $user = $databaseUserProvider->loadUserByUsername('Danny');
     }
 
     /**
