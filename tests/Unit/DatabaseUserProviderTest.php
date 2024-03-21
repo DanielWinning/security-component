@@ -43,7 +43,7 @@ class DatabaseUserProviderTest extends SecurityComponentUnitTest
      *
      * @throws \ReflectionException|InvalidUserModelException
      */
-    public function testLoadByUsername(): void
+    public function testItLoadsByUsername(): void
     {
         $databaseUserProvider = new DatabaseUserProvider(User::class);
 
@@ -68,7 +68,7 @@ class DatabaseUserProviderTest extends SecurityComponentUnitTest
     /**
      * @return void
      */
-    public function testLoadById(): void
+    public function testItLoadsById(): void
     {
         $databaseUserProvider = new DatabaseUserProvider(User::class);
         $user = $databaseUserProvider->loadById(4);

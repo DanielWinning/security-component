@@ -3,6 +3,8 @@
 namespace Luma\SecurityComponent\Authentication\Authenticators;
 
 use Luma\SecurityComponent\Authentication\AuthenticationResult;
+use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Session\DatabaseSessionManager;
 
 class DatabaseAuthenticator extends Authenticator
 {
@@ -21,5 +23,40 @@ class DatabaseAuthenticator extends Authenticator
         }
 
         return new AuthenticationResult(password_verify($password, $user->getPassword()), $user);
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     *
+     * @return AuthenticationResult
+     */
+    public function login(string $username, string $password): AuthenticationResult
+    {
+        $authenticationResult = $this->authenticate($username, $password);
+
+        if ($authenticationResult->isAuthenticated()) {
+            DatabaseSessionManager::setSessionItem('user', $authenticationResult->getUser());
+        }
+
+        return $authenticationResult;
+    }
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return AuthenticationResult
+     */
+    public function register(UserInterface $user): AuthenticationResult
+    {
+        $existingUser = $this->userProvider->loadUserByUsername($user->getUsername());
+
+        if ($existingUser) {
+            return new AuthenticationResult(false, null);
+        }
+
+        DatabaseSessionManager::setSessionItem('user', $user->save());
+
+        return new AuthenticationResult(true, $user);
     }
 }

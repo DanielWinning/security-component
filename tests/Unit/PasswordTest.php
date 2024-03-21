@@ -9,12 +9,13 @@ class PasswordTest extends SecurityComponentUnitTest
 {
     /**
      * @param int $length
+     * +
      *
      * @return void
      *
      * @dataProvider passwordLengthProvider
      */
-    public function testGenerateRandom(int $length)
+    public function testItGeneratesRandomPassword(int $length)
     {
         $password = Password::generateRandom($length);
 
@@ -29,7 +30,7 @@ class PasswordTest extends SecurityComponentUnitTest
      *
      * @dataProvider passwordProvider
      */
-    public function testPasswordHash(string $password)
+    public function testItsHashesPassword(string $password)
     {
         $this->assertNotEquals($password, Password::hash($password));
     }

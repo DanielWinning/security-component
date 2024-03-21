@@ -9,7 +9,11 @@ class AuthenticationResult
     private bool $authenticated;
     private ?UserInterface $user;
 
-    public function __construct(bool $authenticated, ?UserInterface $user)
+    /**
+     * @param bool $authenticated
+     * @param UserInterface|null $user
+     */
+    public function __construct(bool $authenticated, ?UserInterface $user = null)
     {
         $this->authenticated = $authenticated;
         $this->user = $user;
