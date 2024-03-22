@@ -7,7 +7,7 @@ use Luma\AuroraDatabase\Attributes\Identifier;
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
 use Luma\AuroraDatabase\Model\Aurora;
-use Luma\SecurityComponent\Attributes\Username;
+use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Interface\UserInterface;
 
 #[Schema('SecurityComponentTest')]
@@ -21,7 +21,7 @@ class UserEmail extends Aurora implements UserInterface
     #[Column('strUsername')]
     private string $username;
 
-    #[Username]
+    #[SecurityIdentifier]
     #[Column('strEmailAddress')]
     private string $emailAddress;
 
@@ -32,11 +32,11 @@ class UserEmail extends Aurora implements UserInterface
 
     public function getUsername(): string
     {
-        // TODO: Implement getUsername() method.
+        return $this->username;
     }
 
     public function getPassword(): string
     {
-        // TODO: Implement getPassword() method.
+        return $this->password;
     }
 }

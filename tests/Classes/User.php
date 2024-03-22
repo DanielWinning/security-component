@@ -7,7 +7,7 @@ use Luma\AuroraDatabase\Attributes\Identifier;
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
 use Luma\AuroraDatabase\Model\Aurora;
-use Luma\SecurityComponent\Attributes\Username;
+use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Interface\UserInterface;
 
 #[Schema('SecurityComponentTest')]
@@ -18,7 +18,7 @@ class User extends Aurora implements UserInterface
     #[Column('intUserId')]
     protected int $id;
 
-    #[Username]
+    #[SecurityIdentifier]
     #[Column('strUsername')]
     private string $username;
 

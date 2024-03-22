@@ -4,7 +4,7 @@ namespace Luma\SecurityComponent\Authentication\Providers;
 
 use Luma\AuroraDatabase\Attributes\Column;
 use Luma\AuroraDatabase\Model\Aurora;
-use Luma\SecurityComponent\Attributes\Username;
+use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
 use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\SecurityComponent\Interface\UserProviderInterface;
@@ -53,7 +53,10 @@ class DatabaseUserProvider implements UserProviderInterface
     {
         $userFromSession = self::getUserFromSession();
 
-        if ($userFromSession && $userFromSession->getUsername() === $username) {
+        if ($userFromSession) {
+            // Here I can't call getUsername as the security identifier could
+            // be something like emailAddress and I can't enforce getEmailAddress on the UserInterface
+            // as this does not make it open to be used with other auth systems.
             return $userFromSession;
         }
 
@@ -96,13 +99,13 @@ class DatabaseUserProvider implements UserProviderInterface
 
         foreach ($reflector->getProperties() as $property) {
             $columnAttribute = $property->getAttributes(Column::class)[0] ?? null;
-            $usernameAttribute = $property->getAttributes(Username::class)[0] ?? null;
+            $usernameAttribute = $property->getAttributes(SecurityIdentifier::class)[0] ?? null;
 
             if ($columnAttribute && $usernameAttribute) {
                 return $property->getName();
             }
         }
 
-        throw new InvalidUserModelException($this->userClass::class, [Column::class, Username::class]);
+        throw new InvalidUserModelException($this->userClass::class, [Column::class, SecurityIdentifier::class]);
     }
 }

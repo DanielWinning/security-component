@@ -9,6 +9,7 @@ use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
+use Luma\Tests\Classes\UserEmail;
 
 class AuthenticatorTest extends SecurityComponentUnitTest
 {
@@ -20,19 +21,30 @@ class AuthenticatorTest extends SecurityComponentUnitTest
         $databaseAuthenticator = new DatabaseAuthenticator(new DatabaseUserProvider(User::class));
 
         $this->assertInstanceOf(DatabaseAuthenticator::class, $databaseAuthenticator);
+
+        $databaseAuthenticator = new DatabaseAuthenticator(new DatabaseUserProvider(UserEmail::class));
+
+        $this->assertInstanceOf(DatabaseAuthenticator::class, $databaseAuthenticator);
     }
 
     /**
      * @param string $username
      * @param string $password
+     * @param string $userClass
      *
      * @return void
      *
+     * @throws \Exception
+     *
      * @dataProvider validCredentialsProvider
      */
-    public function testItAuthenticates(string $username, string $password): void
+    public function testItAuthenticates(string $username, string $password, string $userClass): void
     {
-        $authenticationResult = (new DatabaseAuthenticator(new DatabaseUserProvider(User::class)))
+        if (isset($_SESSION['user'])) {
+            unset($_SESSION['user']);
+        }
+
+        $authenticationResult = (new DatabaseAuthenticator(new DatabaseUserProvider($userClass)))
             ->authenticate($username, $password);
 
         $this->assertTrue($authenticationResult->isAuthenticated());
@@ -145,14 +157,22 @@ class AuthenticatorTest extends SecurityComponentUnitTest
             [
                 'username' => 'Danny',
                 'password' => 'P4$$w0rd123!',
+                'userClass' => User::class,
             ],
             [
                 'username' => 'Abbie',
                 'password' => 'abbie',
+                'userClass' => User::class,
             ],
             [
                 'username' => 'Charlie',
                 'password' => 'p4$$word123',
+                'userClass' => User::class,
+            ],
+            [
+                'username' => 'charlie@test.com',
+                'password' => 'p4$$word123',
+                'userClass' => UserEmail::class,
             ],
         ];
     }
