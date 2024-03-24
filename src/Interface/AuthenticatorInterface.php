@@ -18,4 +18,11 @@ interface AuthenticatorInterface
      * @return AuthenticationResult
      */
     public function authenticate(string $username, string $password): AuthenticationResult;
+
+    /**
+     * @param string|null $redirectPath
+     *
+     * @return void
+     */
+    public function logout(string $redirectPath = null): void;
 }

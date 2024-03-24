@@ -12,17 +12,14 @@ class DatabaseSessionManager implements SessionManagerInterface
     public static function start(): void
     {
         session_start();
+    }
+
+    /**
+     * @return void
+     */
+    public static function regenerate(): void
+    {
         session_regenerate_id(true);
-        $params = session_get_cookie_params();
-        setcookie(
-            session_name(),
-            session_id(),
-            time() + $params['lifetime'],
-            $params['path'],
-            $params['domain'],
-            true,
-            true
-        );
     }
 
     /**
@@ -51,6 +48,8 @@ class DatabaseSessionManager implements SessionManagerInterface
      */
     public static function end(): void
     {
-        session_destroy();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
     }
 }

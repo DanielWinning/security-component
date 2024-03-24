@@ -37,9 +37,24 @@ class DatabaseAuthenticator extends Authenticator
 
         if ($authenticationResult->isAuthenticated()) {
             DatabaseSessionManager::setSessionItem('user', $authenticationResult->getUser());
+            DatabaseSessionManager::regenerate();
         }
 
         return $authenticationResult;
+    }
+
+    /**
+     * @param string|null $redirectPath
+     *
+     * @return void
+     */
+    #[\Override]
+    public function logout(?string $redirectPath = null): void
+    {
+        $redirectPath = $redirectPath ?? explode('?', $_SERVER['REQUEST_URI'] ?? '/')[0];
+
+        DatabaseSessionManager::end();
+        header('Location: ' . $redirectPath);
     }
 
     /**

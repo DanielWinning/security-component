@@ -33,6 +33,8 @@ class SecurityComponentUnitTest extends TestCase
      */
     public function tearDown(): void
     {
-        DatabaseSessionManager::end();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            DatabaseSessionManager::end();
+        }
     }
 }

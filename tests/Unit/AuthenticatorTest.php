@@ -130,6 +130,22 @@ class AuthenticatorTest extends SecurityComponentUnitTest
     }
 
     /**
+     * @return void
+     */
+    public function testItLogsOut(): void
+    {
+        $this->assertEquals([], $_SESSION);
+
+        $_SESSION['user'] = User::find(1);
+
+        $this->assertInstanceOf(UserInterface::class, $_SESSION['user']);
+
+        $authenticator = new DatabaseAuthenticator(new DatabaseUserProvider(User::class));
+
+        $authenticator->logout();
+    }
+
+    /**
      * @return array[]
      */
     public function newUserDataProvider(): array

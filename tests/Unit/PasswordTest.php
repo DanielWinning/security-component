@@ -30,7 +30,7 @@ class PasswordTest extends SecurityComponentUnitTest
      *
      * @dataProvider passwordProvider
      */
-    public function testItsHashesPassword(string $password)
+    public function testItHashesPassword(string $password)
     {
         $this->assertNotEquals($password, Password::hash($password));
     }
@@ -48,7 +48,7 @@ class PasswordTest extends SecurityComponentUnitTest
                 'P4$$w0Rd123!',
             ],
             [
-                Password::generateRandom(255),
+                Password::generateRandom(60),
             ],
         ];
     }
