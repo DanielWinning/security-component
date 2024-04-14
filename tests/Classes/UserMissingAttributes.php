@@ -4,7 +4,6 @@ namespace Luma\Tests\Classes;
 
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
-use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Authentication\AbstractUser;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;

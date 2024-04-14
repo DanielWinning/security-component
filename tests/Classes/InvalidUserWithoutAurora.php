@@ -3,9 +3,8 @@
 namespace Luma\Tests\Classes;
 
 use Luma\AuroraDatabase\Utils\Collection;
-use Luma\SecurityComponent\Authentication\AbstractUser;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;
-use Luma\SecurityComponent\Authorization\Role;
+use Luma\SecurityComponent\Authorization\AbstractRole;
 
 class InvalidUserWithoutAurora implements UserInterface
 {
@@ -34,7 +33,7 @@ class InvalidUserWithoutAurora implements UserInterface
         // TODO: Implement getRoles() method.
     }
 
-    public function hasRole(string|Role $role): bool
+    public function hasRole(string|AbstractRole $role): bool
     {
         // TODO: Implement hasRole() method.
     }

@@ -24,7 +24,7 @@ class Password
      */
     public static function generateRandom(int $length = 12): string
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@*&^%$£!;-_';
+        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@*&^%$!;-_\"'()[]{}|~";
         $characterCount = strlen($characters);
         $randomPassword = '';
 

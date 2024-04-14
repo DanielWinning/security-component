@@ -5,6 +5,7 @@ namespace Luma\Tests\Classes;
 use Dotenv\Dotenv;
 use Luma\AuroraDatabase\DatabaseConnection;
 use Luma\AuroraDatabase\Model\Aurora;
+use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Authentication\Password;
 
 class DataPopulator
@@ -24,8 +25,14 @@ class DataPopulator
      */
     public function populate(array $data): void
     {
-        foreach ($data as $userData) {
-            $this->saveUser($userData['username'], $userData['email'], $userData['password']);
+        foreach ($data['roles'] as $roleData) {
+            Role::create($roleData)->save();
+
+            $this->printCreationText('Role', $roleData['name']);
+        }
+
+        foreach ($data['users'] as $userData) {
+            $this->saveUser($userData['username'], $userData['email'], $userData['password'], $userData['roles']);
         }
     }
 
@@ -33,17 +40,37 @@ class DataPopulator
      * @param string $username
      * @param string $emailAddress
      * @param string $password
+     * @param array $roles
      *
      * @return void
      */
-    private function saveUser(string $username, string $emailAddress, string $password): void
+    private function saveUser(string $username, string $emailAddress, string $password, array $roles): void
     {
-        User::create([
+        $userRoles = [];
+
+        foreach ($roles as $userRole) {
+            $userRoles[] = Role::select()->whereIs('handle', $userRole)->get();
+        }
+
+        $user = User::create([
             'username' => $username,
             'emailAddress' => $emailAddress,
             'password' => Password::hash($password),
+            'roles' => new Collection($userRoles),
         ])->save();
-        echo sprintf("\033[0;32mUser Created\033[0m\033[34m %s \033[0m\n", $username);
+
+        $this->printCreationText('User', $username);
+    }
+
+    /**
+     * @param string $entityType
+     * @param string $entityName
+     *
+     * @return void
+     */
+    private function printCreationText(string $entityType, string $entityName): void
+    {
+        echo sprintf("\033[0;32m%s Created\033[0m\033[34m %s \033[0m\n", $entityType, $entityName);
     }
 
     /**

@@ -7,12 +7,10 @@ use Luma\AuroraDatabase\Attributes\Column;
 use Luma\AuroraDatabase\Attributes\Identifier;
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
-use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Authentication\AbstractUser;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;
-use Luma\SecurityComponent\Authorization\Role;
 
 #[Schema('SecurityComponentTest')]
 #[Table('User')]

@@ -1,8 +1,12 @@
-DROP SCHEMA IF EXISTS SecurityComponentTest;
-DROP SCHEMA IF EXISTS Security;
+# DROP SCHEMA IF EXISTS SecurityComponentTest;
+# DROP SCHEMA IF EXISTS Security;
+#
+CREATE SCHEMA IF NOT EXISTS SecurityComponentTest;
+CREATE SCHEMA IF NOT EXISTS Security;
 
-CREATE SCHEMA SecurityComponentTest;
-CREATE SCHEMA Security;
+USE Security;
+
+DROP TABLE IF EXISTS tblRoleUser;
 
 USE SecurityComponentTest;
 
@@ -28,6 +32,8 @@ CREATE TABLE AddressDetails (
 );
 
 USE Security;
+
+DROP TABLE IF EXISTS tblPermissionRole, tblRole, tblPermission;
 
 CREATE TABLE tblRole (
     intRoleId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

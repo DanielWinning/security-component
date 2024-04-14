@@ -54,10 +54,7 @@ class DatabaseUserProvider implements UserProviderInterface
         $userFromSession = self::getUserFromSession();
 
         if ($userFromSession) {
-            // Here I can't call getUsername as the security identifier could
-            // be something like emailAddress and I can't enforce getEmailAddress on the UserInterface
-            // as this does not make it open to be used with other auth systems.
-            return $userFromSession;
+            return $userFromSession->getUsername() === $username ? $userFromSession : null;
         }
 
         return $this->userClass::findBy($this->getUsernameProperty(), $username);
