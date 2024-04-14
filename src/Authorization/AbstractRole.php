@@ -37,7 +37,7 @@ abstract class AbstractRole extends Aurora implements RoleInterface
     {
         return (bool) $this->permissions->find(function (AbstractPermission $rolePermission) use ($permission) {
             if ($permission instanceof AbstractPermission) {
-                return $permission->getId() === $rolePermission->getId();
+                return $permission->getHandle() === $rolePermission->getHandle();
             }
 
             return $permission === $rolePermission->getHandle();
