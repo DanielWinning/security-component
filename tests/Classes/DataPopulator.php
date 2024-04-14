@@ -18,14 +18,15 @@ class DataPopulator
     }
 
     /**
+     * @param array $data
+     *
      * @return void
      */
-    public function populate(): void
+    public function populate(array $data): void
     {
-        $this->saveUser('Abbie', 'abbie@test.com', 'abbie');
-        $this->saveUser('Ben', 'ben@test.com', 'password123');
-        $this->saveUser('Charlie', 'charlie@test.com', 'p4$$word123');
-        $this->saveUser('Danny', 'danny@test.com', 'P4$$w0rd123!');
+        foreach ($data as $userData) {
+            $this->saveUser($userData['username'], $userData['email'], $userData['password']);
+        }
     }
 
     /**

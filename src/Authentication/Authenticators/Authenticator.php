@@ -3,9 +3,9 @@
 namespace Luma\SecurityComponent\Authentication\Authenticators;
 
 use Luma\SecurityComponent\Authentication\AuthenticationResult;
-use Luma\SecurityComponent\Interface\AuthenticatorInterface;
-use Luma\SecurityComponent\Interface\UserInterface;
-use Luma\SecurityComponent\Interface\UserProviderInterface;
+use Luma\SecurityComponent\Authentication\Interface\AuthenticatorInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserProviderInterface;
 
 abstract class Authenticator implements AuthenticatorInterface
 {

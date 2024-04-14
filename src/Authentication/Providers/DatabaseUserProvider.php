@@ -5,9 +5,9 @@ namespace Luma\SecurityComponent\Authentication\Providers;
 use Luma\AuroraDatabase\Attributes\Column;
 use Luma\AuroraDatabase\Model\Aurora;
 use Luma\SecurityComponent\Attributes\SecurityIdentifier;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserProviderInterface;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
-use Luma\SecurityComponent\Interface\UserInterface;
-use Luma\SecurityComponent\Interface\UserProviderInterface;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 
 class DatabaseUserProvider implements UserProviderInterface

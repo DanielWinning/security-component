@@ -3,7 +3,7 @@
 namespace Luma\SecurityComponent\Exception;
 
 use Luma\AuroraDatabase\Model\Aurora;
-use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 
 class InvalidUserModelException extends \Exception
 {

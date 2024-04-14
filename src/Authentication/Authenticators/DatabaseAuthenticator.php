@@ -3,7 +3,7 @@
 namespace Luma\SecurityComponent\Authentication\Authenticators;
 
 use Luma\SecurityComponent\Authentication\AuthenticationResult;
-use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 
 class DatabaseAuthenticator extends Authenticator

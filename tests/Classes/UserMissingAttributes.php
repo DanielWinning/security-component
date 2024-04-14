@@ -5,11 +5,13 @@ namespace Luma\Tests\Classes;
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
 use Luma\AuroraDatabase\Model\Aurora;
-use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\AuroraDatabase\Utils\Collection;
+use Luma\SecurityComponent\Authentication\AbstractUser;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 
 #[Schema('SecurityComponentTest')]
 #[Table('User')]
-class UserMissingAttributes extends Aurora implements UserInterface
+class UserMissingAttributes extends AbstractUser implements UserInterface
 {
     protected int $id;
 
@@ -27,5 +29,10 @@ class UserMissingAttributes extends Aurora implements UserInterface
     public function getPassword(): string
     {
         return '';
+    }
+
+    public function getRoles(): Collection
+    {
+        // TODO: Implement getRoles() method.
     }
 }

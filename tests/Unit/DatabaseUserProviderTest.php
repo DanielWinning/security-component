@@ -2,9 +2,9 @@
 
 namespace Luma\Tests\Unit;
 
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 use Luma\SecurityComponent\Authentication\Providers\DatabaseUserProvider;
 use Luma\SecurityComponent\Exception\InvalidUserModelException;
-use Luma\SecurityComponent\Interface\UserInterface;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 use Luma\Tests\Classes\InvalidUser;
 use Luma\Tests\Classes\InvalidUserWithoutAurora;

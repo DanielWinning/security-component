@@ -2,7 +2,7 @@
 
 namespace Luma\SecurityComponent\Authentication;
 
-use Luma\SecurityComponent\Interface\UserInterface;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 
 class AuthenticationResult
 {

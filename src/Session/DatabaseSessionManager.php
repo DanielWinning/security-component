@@ -2,7 +2,7 @@
 
 namespace Luma\SecurityComponent\Session;
 
-use Luma\SecurityComponent\Interface\SessionManagerInterface;
+use Luma\SecurityComponent\Authentication\Interface\SessionManagerInterface;
 
 class DatabaseSessionManager implements SessionManagerInterface
 {
