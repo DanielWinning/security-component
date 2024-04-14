@@ -25,11 +25,26 @@ class DataPopulator
      */
     public function populate(array $data): void
     {
+        foreach ($data['permissions'] as $permissionData) {
+            Permission::create($permissionData)->save();
+
+            $this->printCreationText('Permission', $permissionData['name']);
+        }
+        echo "\r\n";
+
         foreach ($data['roles'] as $roleData) {
+            $permissions = new Collection(array_map(function (string $permission) {
+                return Permission::select()->whereIs('handle', $permission)->get();
+            }, $roleData['permissions']));
+
+            $roleData['permissions'] = $permissions;
+
             Role::create($roleData)->save();
 
             $this->printCreationText('Role', $roleData['name']);
         }
+
+        echo "\r\n";
 
         foreach ($data['users'] as $userData) {
             $this->saveUser($userData['username'], $userData['email'], $userData['password'], $userData['roles']);
@@ -52,7 +67,7 @@ class DataPopulator
             $userRoles[] = Role::select()->whereIs('handle', $userRole)->get();
         }
 
-        $user = User::create([
+        User::create([
             'username' => $username,
             'emailAddress' => $emailAddress,
             'password' => Password::hash($password),

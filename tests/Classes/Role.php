@@ -24,7 +24,12 @@ class Role extends AbstractRole
     #[Column('strRoleHandle')]
     protected string $handle;
 
-    #[AuroraCollection(class: Permission::class, pivotSchema: 'Security', pivotTable: 'tblPermissionRole')]
+    #[AuroraCollection(
+        class: Permission::class,
+        pivotSchema: 'Security',
+        pivotTable: 'tblPermissionRole',
+        pivotColumn: 'intPermissionId'
+    )]
     protected Collection $permissions;
 
     public function getName(): string

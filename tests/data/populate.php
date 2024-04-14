@@ -31,18 +31,34 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
             'roles' => ['admin'],
         ],
     ],
+    'permissions' => [
+        [
+            'name' => 'Access All Areas',
+            'handle' => 'access_all_areas',
+        ],
+        [
+            'name' => 'Edit User',
+            'handle' => 'edit_user',
+        ],
+    ],
     'roles' => [
         [
             'name' => 'Administrator',
             'handle' => 'admin',
+            'permissions' => [
+                'edit_user',
+                'access_all_areas',
+            ],
         ],
         [
             'name' => 'User',
             'handle' => 'user',
+            'permissions' => [],
         ],
         [
             'name' => 'Moderator',
             'handle' => 'moderator',
+            'permissions' => [],
         ],
     ],
 ]);

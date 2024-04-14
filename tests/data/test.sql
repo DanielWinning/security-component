@@ -1,6 +1,3 @@
-# DROP SCHEMA IF EXISTS SecurityComponentTest;
-# DROP SCHEMA IF EXISTS Security;
-#
 CREATE SCHEMA IF NOT EXISTS SecurityComponentTest;
 CREATE SCHEMA IF NOT EXISTS Security;
 

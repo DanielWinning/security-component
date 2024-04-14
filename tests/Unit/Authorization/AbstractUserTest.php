@@ -21,6 +21,9 @@ class AbstractUserTest extends SecurityComponentUnitTest
         $this->assertTrue(User::find(4)->with([Role::class])->hasRole('admin'));
     }
 
+    /**
+     * @return void
+     */
     public function testAddRole(): void
     {
         $user = User::find(1)->with([Role::class]);
