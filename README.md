@@ -8,3 +8,7 @@
 <!-- License Badge -->
 <img src="https://img.shields.io/badge/License-GPL--3.0--or--later-34ad9b" alt="License GPL--3.0--or--later">
 </div>
+
+```
+composer require lumax/security-component
+```
