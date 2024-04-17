@@ -17,4 +17,9 @@ interface UserProviderInterface
      * @return UserInterface|null
      */
     public function loadUserByUsername(string $username): ?UserInterface;
+
+    /**
+     * @return UserInterface|null
+     */
+    public function getUserFromSession(): ?UserInterface;
 }
