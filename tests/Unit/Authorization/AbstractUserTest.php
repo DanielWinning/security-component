@@ -35,4 +35,12 @@ class AbstractUserTest extends SecurityComponentUnitTest
 
         $this->assertTrue($user->hasRole('admin'));
     }
+
+    /**
+     * @return void
+     */
+    public function testGetSecurityIdentifier(): void
+    {
+        $this->assertEquals('username', User::getSecurityIdentifier());
+    }
 }

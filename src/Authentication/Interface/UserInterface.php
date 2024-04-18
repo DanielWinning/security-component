@@ -3,7 +3,7 @@
 namespace Luma\SecurityComponent\Authentication\Interface;
 
 use Luma\AuroraDatabase\Utils\Collection;
-use Luma\SecurityComponent\Authorization\AbstractRole;
+use Luma\SecurityComponent\Authorization\Interface\RoleInterface;
 
 interface UserInterface
 {
@@ -25,9 +25,21 @@ interface UserInterface
     public function getRoles(): Collection;
 
     /**
-     * @param AbstractRole|string $role
+     * @param RoleInterface|string $role
      *
      * @return bool
      */
-    public function hasRole(AbstractRole|string $role): bool;
+    public function hasRole(RoleInterface|string $role): bool;
+
+    /**
+     * @return string
+     */
+    public static function getSecurityIdentifier(): string;
+
+    /**
+     * @param RoleInterface $role
+     *
+     * @return void
+     */
+    public function addRole(RoleInterface $role): void;
 }

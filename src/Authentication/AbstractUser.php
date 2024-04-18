@@ -4,8 +4,9 @@ namespace Luma\SecurityComponent\Authentication;
 
 use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
+use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;
-use Luma\SecurityComponent\Authorization\AbstractRole;
+use Luma\SecurityComponent\Authorization\Interface\RoleInterface;
 
 abstract class AbstractUser extends Aurora implements UserInterface
 {
@@ -20,14 +21,14 @@ abstract class AbstractUser extends Aurora implements UserInterface
     abstract public function getRoles(): Collection;
 
     /**
-     * @param AbstractRole|string $role
+     * @param RoleInterface|string $role
      *
      * @return bool
      */
-    public function hasRole(AbstractRole|string $role): bool
+    public function hasRole(RoleInterface|string $role): bool
     {
-        return (bool) $this->getRoles()->find(function (AbstractRole $userRole) use ($role) {
-            if ($role instanceof AbstractRole) {
+        return (bool) $this->getRoles()->find(function (RoleInterface $userRole) use ($role) {
+            if ($role instanceof RoleInterface) {
                 return $role->getId() === $userRole->getId();
             }
 
@@ -36,12 +37,32 @@ abstract class AbstractUser extends Aurora implements UserInterface
     }
 
     /**
-     * @param AbstractRole $role
+     * @param RoleInterface $role
      *
      * @return void
      */
-    public function addRole(AbstractRole $role): void
+    public function addRole(RoleInterface $role): void
     {
         $this->getRoles()->add($role);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSecurityIdentifier(): string
+    {
+        $reflectionClass = new \ReflectionClass(static::class);
+
+        foreach ($reflectionClass->getProperties() as $property) {
+            $attribute = $property->getAttributes(SecurityIdentifier::class);
+
+            if (!count($attribute)) {
+                continue;
+            }
+
+            return $property->getName();
+        }
+
+        return '';
     }
 }

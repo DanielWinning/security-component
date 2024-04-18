@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.1.0] - 2024-04-18
+### Added
+- Add static `getSecurityIdentifier` method to `AbstractUser`
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.0.1] - 2024-04-17
 ### Added
 - Add `getUserFromSession` to `UserProviderInterface`
