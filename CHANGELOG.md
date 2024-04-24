@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.2.1] - 2024-04-24
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Fixed issue with redirect header always being called in logout, causing application to perform two redirects
+
+### Security
+- N/A
+
+---
+
 ## [1.2.0] - 2024-04-24
 ### Added
 - N/A

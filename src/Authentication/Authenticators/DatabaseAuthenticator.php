@@ -51,8 +51,6 @@ class DatabaseAuthenticator extends Authenticator
     #[\Override]
     public function logout(?string $redirectPath = null): void
     {
-        $redirectPath = $redirectPath ?? explode('?', $_SERVER['REQUEST_URI'] ?? '/')[0];
-
         DatabaseSessionManager::end();
 
         if ($redirectPath) {
