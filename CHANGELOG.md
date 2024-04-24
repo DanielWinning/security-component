@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.2.0] - 2024-04-24
+### Added
+- N/A
+
+### Changed
+- Stop automatic redirection from logout method of `DatabaseAuthenticator`
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.1.0] - 2024-04-18
 ### Added
 - Add static `getSecurityIdentifier` method to `AbstractUser`

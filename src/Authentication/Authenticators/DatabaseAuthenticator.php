@@ -54,7 +54,10 @@ class DatabaseAuthenticator extends Authenticator
         $redirectPath = $redirectPath ?? explode('?', $_SERVER['REQUEST_URI'] ?? '/')[0];
 
         DatabaseSessionManager::end();
-        header('Location: ' . $redirectPath);
+
+        if ($redirectPath) {
+            header('Location: ' . $redirectPath);
+        }
     }
 
     /**
