@@ -52,6 +52,7 @@ class DatabaseAuthenticator extends Authenticator
     public function logout(?string $redirectPath = null): void
     {
         DatabaseSessionManager::end();
+        DatabaseSessionManager::start();
 
         if ($redirectPath) {
             header('Location: ' . $redirectPath);

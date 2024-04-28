@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.2.2] - 2024-04-28
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Ensured the session is restarted within the logout method
+
+### Security
+- N/A
+
+---
+
 ## [1.2.1] - 2024-04-24
 ### Added
 - N/A
