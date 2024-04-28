@@ -36,8 +36,8 @@ class DatabaseAuthenticator extends Authenticator
         $authenticationResult = $this->authenticate($username, $password);
 
         if ($authenticationResult->isAuthenticated()) {
-            DatabaseSessionManager::setSessionItem('user', $authenticationResult->getUser());
             DatabaseSessionManager::regenerate();
+            DatabaseSessionManager::setSessionItem('user', $authenticationResult->getUser());
         }
 
         return $authenticationResult;
@@ -51,8 +51,7 @@ class DatabaseAuthenticator extends Authenticator
     #[\Override]
     public function logout(?string $redirectPath = null): void
     {
-        DatabaseSessionManager::end();
-        DatabaseSessionManager::start();
+        DatabaseSessionManager::regenerate();
 
         if ($redirectPath) {
             header('Location: ' . $redirectPath);

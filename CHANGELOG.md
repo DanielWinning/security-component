@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.3.0] - 2024-04-28
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Fixed logout to just regenerate session without destroying it
+
+### Security
+- N/A
+
+---
+
 ## [1.2.2] - 2024-04-28
 ### Added
 - N/A

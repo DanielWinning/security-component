@@ -19,6 +19,7 @@ class DatabaseSessionManager implements SessionManagerInterface
      */
     public static function regenerate(): void
     {
+        $_SESSION = [];
         session_regenerate_id(true);
     }
 
