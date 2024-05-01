@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.4.0] - 2024-05-02
+### Added
+- Added `AbstractUser::refresh` method to refresh the session user
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.3.1] - 2024-05-01
 ### Added
 - `RoleInterface` now requires `hasPermission`

@@ -48,4 +48,9 @@ class InvalidUserWithoutAurora implements UserInterface
     {
         // TODO: Implement getSecurityIdentifier() method.
     }
+
+    public static function refresh(): void
+    {
+        // TODO: Implement refresh() method.
+    }
 }

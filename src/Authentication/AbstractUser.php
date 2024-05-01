@@ -65,4 +65,14 @@ abstract class AbstractUser extends Aurora implements UserInterface
 
         return '';
     }
+
+    /**
+     * @return void
+     */
+    public static function refresh(): void
+    {
+        if (isset($_SESSION['user']) && $_SESSION['user'] instanceof Aurora) {
+            $_SESSION['user'] = self::find($_SESSION['user']->getId());
+        }
+    }
 }

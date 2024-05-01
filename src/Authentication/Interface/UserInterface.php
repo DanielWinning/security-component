@@ -42,4 +42,9 @@ interface UserInterface
      * @return void
      */
     public function addRole(RoleInterface $role): void;
+
+    /**
+     * @return void
+     */
+    public static function refresh(): void;
 }
