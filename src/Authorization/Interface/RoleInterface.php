@@ -3,6 +3,7 @@
 namespace Luma\SecurityComponent\Authorization\Interface;
 
 use Luma\AuroraDatabase\Utils\Collection;
+use Luma\SecurityComponent\Authorization\AbstractPermission;
 
 interface RoleInterface
 {
@@ -25,4 +26,9 @@ interface RoleInterface
      * @return Collection
      */
     public function getPermissions(): Collection;
+
+    /**
+     * @return bool
+     */
+    public function hasPermission(AbstractPermission|string $permission): bool;
 }

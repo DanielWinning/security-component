@@ -8,6 +8,7 @@ use Luma\AuroraDatabase\Attributes\Identifier;
 use Luma\AuroraDatabase\Attributes\Schema;
 use Luma\AuroraDatabase\Attributes\Table;
 use Luma\AuroraDatabase\Utils\Collection;
+use Luma\SecurityComponent\Authorization\AbstractPermission;
 use Luma\SecurityComponent\Authorization\AbstractRole;
 
 #[Schema('Security')]

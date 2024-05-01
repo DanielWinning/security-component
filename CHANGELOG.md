@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.3.1] - 2024-05-01
+### Added
+- `RoleInterface` now requires `hasPermission`
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.3.0] - 2024-04-28
 ### Added
 - N/A
