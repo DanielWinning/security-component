@@ -1,6 +1,6 @@
 # Luma | Security Component Changelog
 
-## [1.4.1] - 2024-07-15
+## [1.5.0] - 2024-07-15
 ### Added
 - N/A
 
