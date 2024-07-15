@@ -13,15 +13,18 @@ use Luma\SecurityComponent\Session\DatabaseSessionManager;
 class DatabaseUserProvider implements UserProviderInterface
 {
     private Aurora&UserInterface $userClass;
+    private array $associations;
 
     /**
      * @param string $userClass
+     * @param array $associations
      *
-     * @throws \Exception
+     * @throws InvalidUserModelException
      */
-    public function __construct(string $userClass)
+    public function __construct(string $userClass, array $associations = [])
     {
         $this->validateUserClass($userClass);
+        $this->associations = $associations;
 
         $this->userClass = new $userClass;
     }
@@ -57,7 +60,13 @@ class DatabaseUserProvider implements UserProviderInterface
             return $userFromSession->getUsername() === $username ? $userFromSession : null;
         }
 
-        return $this->userClass::findBy($this->getUsernameProperty(), $username);
+        $query = $this->userClass::select()->whereIs($this->getUsernameProperty(), $username);
+
+        if (!empty($this->associations)) {
+            $query->with($this->associations);
+        }
+
+        return $query->get();
     }
 
     /**

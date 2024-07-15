@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.4.1] - 2024-07-15
+### Added
+- N/A
+
+### Changed
+- Allow associated entities to be fetched along with logged-in user (for Roles, Permissions etc.)
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.4.0] - 2024-05-02
 ### Added
 - Added `AbstractUser::refresh` method to refresh the session user
