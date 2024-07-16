@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.5.1] - 2024-07-16
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Fixed `DatabaseUserProvider::loadUserByUsername` when fetching associations
+
+### Security
+- N/A
+
+---
+
 ## [1.5.0] - 2024-07-15
 ### Added
 - N/A

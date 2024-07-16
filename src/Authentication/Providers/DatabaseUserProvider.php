@@ -60,13 +60,13 @@ class DatabaseUserProvider implements UserProviderInterface
             return $userFromSession->getUsername() === $username ? $userFromSession : null;
         }
 
-        $query = $this->userClass::select()->whereIs($this->getUsernameProperty(), $username);
+        $user = $this->userClass::select()->whereIs($this->getUsernameProperty(), $username)->get();
 
-        if (!empty($this->associations)) {
-            $query->with($this->associations);
+        if (empty($this->associations)) {
+            return $user;
         }
 
-        return $query->get();
+        return $user->with($this->associations);
     }
 
     /**
