@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.5.2] - 2024-07-21
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Critical bug fixed; 500 error when attempting to login as a user that does not exist
+
+### Security
+- N/A
+
+---
+
 ## [1.5.1] - 2024-07-16
 ### Added
 - N/A
