@@ -8,11 +8,6 @@ use Luma\SecurityComponent\Authorization\Interface\RoleInterface;
 interface UserInterface
 {
     /**
-     * @return string
-     */
-    public function getUsername(): string;
-
-    /**
      * Returns the hashed password.
      *
      * @return string

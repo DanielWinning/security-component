@@ -1,5 +1,26 @@
 # Luma | Security Component Changelog
 
+## [1.6.0] - 2024-08-23
+### Added
+- N/A
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- Removed `username` requirement from classes extending `AbstractUser`
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.5.2] - 2024-07-21
 ### Added
 - N/A

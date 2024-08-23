@@ -11,10 +11,7 @@ use Luma\SecurityComponent\Authorization\Interface\RoleInterface;
 abstract class AbstractUser extends Aurora implements UserInterface
 {
     protected int $id;
-    protected string $username;
     protected string $password;
-
-    abstract public function getUsername(): string;
 
     abstract public function getPassword(): string;
 
