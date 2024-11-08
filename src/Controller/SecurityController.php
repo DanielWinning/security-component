@@ -6,7 +6,7 @@ use Luma\Framework\Controller\LumaController;
 use Luma\Framework\Luma;
 use Luma\HttpComponent\Request;
 use Luma\HttpComponent\Response;
-use Luma\SecurityComponent\Authentication\AbstractUser;
+use Luma\SecurityComponent\Form\LoginForm;
 
 class SecurityController extends LumaController
 {
@@ -22,12 +22,16 @@ class SecurityController extends LumaController
     }
     public function login(Request $request): Response
     {
+        $form = new LoginForm(null, []);
+
         if ($request->getMethod() === 'POST') {
             // Attempt to log in
-
+            $form = new LoginForm(null, $_POST);
         }
 
         // Render the login form
-        return $this->render(Luma::getConfigParam('security.loginTemplate') ?? '');
+        return $this->render(Luma::getConfigParam('security.loginTemplate') ?? '', [
+            'form' => $form,
+        ]);
     }
 }
