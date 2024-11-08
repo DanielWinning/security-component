@@ -22,12 +22,14 @@ class LoginForm extends AbstractForm
             'name' => 'emailAddress',
             'label' => 'Email Address',
             'id' => 'email-address-input',
+            'placeholder' => 'Email Address',
             'required' => true,
         ]));
         $this->addFormField(new PasswordInputField([
             'name' => 'password',
             'label' => 'Password',
             'id' => 'password-input',
+            'placeholder' => 'password',
             'required' => true,
         ]));
         $this->addFormField(new SubmitButton([
