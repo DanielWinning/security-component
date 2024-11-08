@@ -25,6 +25,11 @@ class SecurityController extends LumaController
         $this->userClass = Luma::getConfigParam('security.userClass') ?? '';
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function login(Request $request): Response
     {
         $form = new LoginForm([]);
@@ -67,5 +72,22 @@ class SecurityController extends LumaController
         return $this->render($this->loginTemplate, [
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @return Response
+     */
+    public function logout(): Response
+    {
+        if ($this->getLoggedInUser()) {
+            Luma::getAuthenticator()->logout();
+
+            $this->addFlashMessage(
+                new FlashMessage('You have successfully logged out of your account.'),
+                FlashMessage::INFO
+            );
+        }
+
+        return $this->redirect('/login');
     }
 }
