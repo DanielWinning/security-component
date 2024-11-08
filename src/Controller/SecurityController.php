@@ -19,14 +19,16 @@ class SecurityController extends LumaController
         parent::__construct();
 
         $this->loginTemplate = Luma::getConfigParam('security.loginTemplate');
+        $this->registrationTemplate = Luma::getConfigParam('security.registrationTemplate');
     }
+
     public function login(Request $request): Response
     {
-        $form = new LoginForm(null, []);
+        $form = new LoginForm([]);
 
         if ($request->getMethod() === 'POST') {
             // Attempt to log in
-            $form = new LoginForm(null, $_POST);
+            $form = new LoginForm($_POST);
         }
 
         // Render the login form

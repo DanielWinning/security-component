@@ -244,12 +244,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DanielWinning/form-component.git",
-                "reference": "ea5fe23db0629a72eae177b0d691f393524892f5"
+                "reference": "dcd4cd8e38f7b701978fbbee3acc841f8c647909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DanielWinning/form-component/zipball/ea5fe23db0629a72eae177b0d691f393524892f5",
-                "reference": "ea5fe23db0629a72eae177b0d691f393524892f5",
+                "url": "https://api.github.com/repos/DanielWinning/form-component/zipball/dcd4cd8e38f7b701978fbbee3acc841f8c647909",
+                "reference": "dcd4cd8e38f7b701978fbbee3acc841f8c647909",
                 "shasum": ""
             },
             "require": {
@@ -273,7 +273,7 @@
                 "issues": "https://github.com/DanielWinning/form-component/issues",
                 "source": "https://github.com/DanielWinning/form-component/tree/dev"
             },
-            "time": "2024-11-08T22:06:59+00:00"
+            "time": "2024-11-08T22:58:16+00:00"
         },
         {
             "name": "lumax/framework-component",
