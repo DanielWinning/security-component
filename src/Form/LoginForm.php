@@ -6,6 +6,7 @@ use Luma\FormComponent\Form\AbstractForm;
 use Luma\FormComponent\Form\Exception\InvalidFieldOptionException;
 use Luma\FormComponent\Form\Exception\MissingFieldOptionException;
 use Luma\FormComponent\Form\Field\PasswordInputField;
+use Luma\FormComponent\Form\Field\SubmitButton;
 use Luma\FormComponent\Form\Field\TextInputField;
 
 class LoginForm extends AbstractForm
@@ -28,6 +29,10 @@ class LoginForm extends AbstractForm
             'label' => 'Password',
             'id' => 'password-input',
             'required' => true,
+        ]));
+        $this->addFormField(new SubmitButton([
+            'name' => 'Log In',
+            'id' => 'login-submit',
         ]));
     }
 }
