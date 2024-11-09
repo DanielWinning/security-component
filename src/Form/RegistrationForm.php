@@ -33,24 +33,28 @@ class RegistrationForm extends AbstractForm
             'id' => 'username',
             'label' => 'Username',
             'required' => true,
+            'placeholder' => 'Username',
         ]));
         $this->addFormField(new EmailInputField([
             'name' => 'emailAddress',
             'id' => 'email-address',
             'label' => 'Email Address',
             'required' => true,
+            'placeholder' => 'Email Address',
         ]));
         $this->addFormField(new PasswordInputField([
             'name' => 'password',
             'id' => 'password',
             'label' => 'Password',
             'required' => true,
+            'placeholder' => 'Password',
         ]));
         $this->addFormField(new PasswordInputField([
             'name' => 'repeatPassword',
             'id' => 'repeat-password',
             'label' => 'Repeat Password',
             'required' => true,
+            'placeholder' => 'Repeat Password',
         ]));
         $this->addFormField(new SubmitButton([
             'name' => 'Register',
