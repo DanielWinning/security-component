@@ -8,6 +8,7 @@ use Luma\Framework\Messages\FlashMessage;
 use Luma\HttpComponent\Request;
 use Luma\HttpComponent\Response;
 use Luma\SecurityComponent\Form\LoginForm;
+use Luma\SecurityComponent\Form\RegistrationForm;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 
 class SecurityController extends LumaController
@@ -93,8 +94,14 @@ class SecurityController extends LumaController
 
     public function register(Request $request)
     {
+        $form = new RegistrationForm();
+
         if ($request->getMethod() === 'POST') {
             //
         }
+
+        return $this->render($this->registrationTemplate, [
+            'form' => $form,
+        ]);
     }
 }
