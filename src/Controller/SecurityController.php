@@ -37,9 +37,9 @@ class SecurityController extends LumaController
         if ($request->getMethod() === 'POST') {
             $form = new LoginForm($_POST);
 
-            if (!$request->get($this->userClass::getSecurityIdentifier()) || !$request->get('password')) {
+            if (!$form->validate()) {
                 $this->addFlashMessage(
-                    new FlashMessage(sprintf('Invalid request, please set %s and password', $this->userClass::getSecurityIdentifier())),
+                    new FlashMessage(sprintf('Something went wrong: %s', implode(' ', $form->getErrors()))),
                     FlashMessage::ERROR
                 );
 
@@ -89,5 +89,12 @@ class SecurityController extends LumaController
         }
 
         return $this->redirect('/login');
+    }
+
+    public function register(Request $request)
+    {
+        if ($request->getMethod() === 'POST') {
+            //
+        }
     }
 }
