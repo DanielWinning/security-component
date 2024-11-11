@@ -119,9 +119,35 @@ class SecurityController extends LumaController
                     $existingUserByEmailAddress = $this->userClass::select([$this->userClass::getSecurityIdentifier()])
                         ->whereIs($this->userClass::getSecurityIdentifier(), $data[$this->userClass::getSecurityIdentifier()])
                         ->get();
+                    $existingUserByUsername = $this->userClass::select(['username'])->whereIs('username', $data['username'])->get();
 
-                    dump($existingUserByEmailAddress);
-                    die();
+                    if ($existingUserByEmailAddress) {
+                        $this->addFlashMessage(
+                            new FlashMessage('A user already exists with this email address.'),
+                            FlashMessage::ERROR
+                        );
+                    }
+
+                    if ($existingUserByUsername) {
+                        $this->addFlashMessage(
+                            new FlashMessage('A user already exists with this username.'),
+                            FlashMessage::ERROR
+                        );
+                    }
+
+                    if (!$existingUserByUsername && !$existingUserByEmailAddress) {
+                        $user = $this->userClass::create([
+                            $this->userClass::getSecurityIdentifier() => $data[$this->userClass::getSecurityIdentifier()],
+                            'username' => $data['username'],
+                            'password' => $data['password'],
+                        ]);
+
+                        $user->save();
+
+                        Luma::getAuthenticator()->login($data['emailAddress'], $data['password']);
+                    }
+
+                    return $this->redirect('/');
                 } catch (\Exception $exception) {
                     $this->addFlashMessage(
                         new FlashMessage('Something went wrong, please try again.'),
