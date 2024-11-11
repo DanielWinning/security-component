@@ -92,12 +92,34 @@ class SecurityController extends LumaController
         return $this->redirect('/login');
     }
 
-    public function register(Request $request)
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function register(Request $request): Response
     {
         $form = new RegistrationForm();
 
         if ($request->getMethod() === 'POST') {
-            //
+            $form = new RegistrationForm($_POST);
+
+            if ($form->validate()) {
+                // Form is valid, continue
+                var_dump($form->getData());
+                die();
+            } else {
+                foreach ($form->getErrors() as $formError) {
+                    $this->addFlashMessage(
+                        new FlashMessage($formError),
+                        FlashMessage::ERROR
+                    );
+
+                    return $this->render($this->registrationTemplate, [
+                        'form' => $form,
+                    ]);
+                }
+            }
         }
 
         return $this->render($this->registrationTemplate, [
