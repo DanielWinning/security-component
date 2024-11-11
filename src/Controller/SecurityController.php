@@ -2,6 +2,7 @@
 
 namespace Luma\SecurityComponent\Controller;
 
+use Luma\AuroraDatabase\Model\Aurora;
 use Luma\Framework\Controller\LumaController;
 use Luma\Framework\Luma;
 use Luma\Framework\Messages\FlashMessage;
@@ -10,6 +11,8 @@ use Luma\HttpComponent\Response;
 use Luma\SecurityComponent\Form\LoginForm;
 use Luma\SecurityComponent\Form\RegistrationForm;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class SecurityController extends LumaController
 {
@@ -17,6 +20,9 @@ class SecurityController extends LumaController
     private string $registrationTemplate;
     private string $userClass;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +30,8 @@ class SecurityController extends LumaController
         $this->loginTemplate = Luma::getConfigParam('security.loginTemplate') ?? '';
         $this->registrationTemplate = Luma::getConfigParam('security.registrationTemplate') ?? '';
         $this->userClass = Luma::getConfigParam('security.userClass') ?? '';
+
+        $this->validateConfig();
     }
 
     /**
@@ -105,9 +113,22 @@ class SecurityController extends LumaController
             $form = new RegistrationForm($_POST);
 
             if ($form->validate()) {
-                // Form is valid, continue
-                var_dump($form->getData());
-                die();
+                $data = $form->getData();
+
+                try {
+                    $existingUserByEmailAddress = $this->userClass::select([$this->userClass::getSecurityIdentifier()])
+                        ->whereIs($this->userClass::getSecurityIdentifier(), $data[$this->userClass::getSecurityIdentifier()])
+                        ->get();
+
+                    dump($existingUserByEmailAddress);
+                    die();
+                } catch (\Exception $exception) {
+                    $this->addFlashMessage(
+                        new FlashMessage('Something went wrong, please try again.'),
+                        FlashMessage::ERROR
+                    );
+                    Debugger::log($exception->getMessage(), ILogger::EXCEPTION);
+                }
             } else {
                 foreach ($form->getErrors() as $formError) {
                     $this->addFlashMessage(
@@ -125,5 +146,21 @@ class SecurityController extends LumaController
         return $this->render($this->registrationTemplate, [
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @return void
+     *
+     * @throws \Exception
+     */
+    private function validateConfig(): void
+    {
+        if (!class_exists($this->userClass)) {
+            throw new \Exception(sprintf('The specified User class could not be found (%s)', $this->userClass));
+        }
+
+        if (!is_subclass_of($this->userClass, Aurora::class)) {
+            throw new \Exception(sprintf('Your User class must extend Luma\\AuroraDatabase\\Model\\Aurora - User Class: %s', $this->userClass));
+        }
     }
 }
