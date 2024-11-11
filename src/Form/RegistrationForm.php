@@ -5,22 +5,14 @@ namespace Luma\SecurityComponent\Form;
 use Luma\FormComponent\Form\AbstractForm;
 use Luma\FormComponent\Form\Exception\InvalidFieldOptionException;
 use Luma\FormComponent\Form\Exception\MissingFieldOptionException;
+use Luma\FormComponent\Form\Field\AbstractFormField;
 use Luma\FormComponent\Form\Field\EmailInputField;
 use Luma\FormComponent\Form\Field\PasswordInputField;
 use Luma\FormComponent\Form\Field\SubmitButton;
 use Luma\FormComponent\Form\Field\TextInputField;
-use Luma\Framework\Luma;
 
 class RegistrationForm extends AbstractForm
 {
-    private string $userClass;
-
-    public function __construct()
-    {
-        $this->userClass = Luma::getConfigParam('security.userClass');
-        parent::__construct();
-    }
-
     /**
      * @return void
      *
@@ -55,6 +47,16 @@ class RegistrationForm extends AbstractForm
             'label' => 'Repeat Password',
             'required' => true,
             'placeholder' => 'Repeat Password',
+            'validation' => function (AbstractForm $form, AbstractFormField $thisField) {
+                foreach ($form->getFormFields() as $field) {
+                    if ($field->getName() === 'password') {
+                        return $field->getValue() === $thisField->getValue();
+                    }
+                }
+
+                return true;
+            },
+            'validationError' => 'Passwords do not match',
         ]));
         $this->addFormField(new SubmitButton([
             'name' => 'Register',

@@ -21,7 +21,7 @@
     "require": {
         "lumax/aurora-db": "^2.0",
         "lumax/framework-component": "^1.6",
-        "lumax/form-component": "dev-dev as 0.1.0"
+        "lumax/form-component": "^0.2.0"
     },
     "license": "GPL-3.0-or-later",
     "version": "1.6.0"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1aee7fc005c11ed98c33a77f4d0a9890",
+    "content-hash": "fae8971e44707ddeb860de718b3d3765",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -240,16 +240,16 @@
         },
         {
             "name": "lumax/form-component",
-            "version": "dev-dev",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DanielWinning/form-component.git",
-                "reference": "dcd4cd8e38f7b701978fbbee3acc841f8c647909"
+                "reference": "f40132472aa3c099fdbf12608fac4aa71833bbbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DanielWinning/form-component/zipball/dcd4cd8e38f7b701978fbbee3acc841f8c647909",
-                "reference": "dcd4cd8e38f7b701978fbbee3acc841f8c647909",
+                "url": "https://api.github.com/repos/DanielWinning/form-component/zipball/f40132472aa3c099fdbf12608fac4aa71833bbbb",
+                "reference": "f40132472aa3c099fdbf12608fac4aa71833bbbb",
                 "shasum": ""
             },
             "require": {
@@ -271,9 +271,9 @@
             "description": "The form component for the Luma framework",
             "support": {
                 "issues": "https://github.com/DanielWinning/form-component/issues",
-                "source": "https://github.com/DanielWinning/form-component/tree/dev"
+                "source": "https://github.com/DanielWinning/form-component/tree/0.2.0"
             },
-            "time": "2024-11-08T22:58:16+00:00"
+            "time": "2024-11-11T22:09:33+00:00"
         },
         {
             "name": "lumax/framework-component",
@@ -3238,18 +3238,9 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "lumax/form-component",
-            "version": "dev-dev",
-            "alias": "0.1.0",
-            "alias_normalized": "0.1.0.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "lumax/form-component": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
