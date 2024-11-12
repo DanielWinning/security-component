@@ -14,8 +14,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand(name: 'luma:security:populate', description: 'Populates initial user and security tables')]
 class PopulateCommand extends Command
 {
-    private SymfonyStyle $style;
-
     /**
      * @return void
      *
@@ -28,9 +26,16 @@ class PopulateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->style = new SymfonyStyle($input, $output);
-        $this->style->title('Executing Populate Security Schema Command');
+        $style = new SymfonyStyle($input, $output);
+        $style->title('Executing Populate Security Schema Command');
+
+        $this->getDataPath();
 
         return Command::SUCCESS;
+    }
+
+    protected function getDataPath()
+    {
+        dump(sprintf('%s/data/security.json', dirname(__DIR__, 5)));
     }
 }
