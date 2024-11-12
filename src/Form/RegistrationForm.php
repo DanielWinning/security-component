@@ -26,6 +26,7 @@ class RegistrationForm extends AbstractForm
             'label' => 'Username',
             'required' => true,
             'placeholder' => 'Username',
+            'maxLength' => 60,
         ]));
         $this->addFormField(new EmailInputField([
             'name' => 'emailAddress',
@@ -33,6 +34,7 @@ class RegistrationForm extends AbstractForm
             'label' => 'Email Address',
             'required' => true,
             'placeholder' => 'Email Address',
+            'maxLength' => 255,
         ]));
         $this->addFormField(new PasswordInputField([
             'name' => 'password',
@@ -40,6 +42,15 @@ class RegistrationForm extends AbstractForm
             'label' => 'Password',
             'required' => true,
             'placeholder' => 'Password',
+            'minLength' => 8,
+            'validation' => function (AbstractForm $form, AbstractFormField $formField) {
+                $hasUpperCase = preg_match('/[A-Z]/', $formField->getValue() ?? '');
+                $hasLowerCase = preg_match('/[a-z]/', $formField->getValue() ?? '');
+                $hasNumber = preg_match('/[0-9]/', $formField->getValue() ?? '');
+
+                return $hasLowerCase && $hasUpperCase && $hasNumber;
+            },
+            'validationError' => 'Password must contain at least one upper case character, one lowercase character and one number.',
         ]));
         $this->addFormField(new PasswordInputField([
             'name' => 'repeatPassword',
