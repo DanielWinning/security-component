@@ -25,6 +25,14 @@ class PopulateCommand extends Command
         DatabaseConnectionHelper::connect();
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     *
+     * @throws \ReflectionException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $style = new SymfonyStyle($input, $output);
@@ -38,6 +46,7 @@ class PopulateCommand extends Command
 
         $populationData = json_decode(file_get_contents($this->getDataPath()));
 
+        $style->section('Creating Permissions');
         foreach ($populationData->permissions as $permission) {
             $existingPermission = Permission::select()->whereIs('handle', $permission->handle)->get();
 
