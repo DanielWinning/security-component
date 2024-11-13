@@ -39,7 +39,7 @@ class PopulateCommand extends Command
         $populationData = json_decode(file_get_contents($this->getDataPath()));
 
         foreach ($populationData->permissions as $permission) {
-            $existingPermission = Permission::select()->whereIs('handle', $permission->handle())->get();
+            $existingPermission = Permission::select()->whereIs('handle', $permission->handle)->get();
 
             if ($existingPermission) {
                 $style->text(sprintf('Skipping existing permission %s', $permission->handle));
