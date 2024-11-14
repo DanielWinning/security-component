@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Luma\SecurityComponent\Command;
 
+use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
 use Luma\Framework\Classes\Helper\DatabaseConnectionHelper;
+use Luma\Framework\Luma;
+use Luma\SecurityComponent\Authentication\Password;
 use Luma\SecurityComponent\Entity\Permission;
 use Luma\SecurityComponent\Entity\Role;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -19,7 +22,13 @@ class PopulateCommand extends Command
 {
     private SymfonyStyle $style;
     private \stdClass $data;
+    private string $userClass;
 
+    public function __construct()
+    {
+        $this->userClass = Luma::getConfigParam('security.userClass');
+        parent::__construct();
+    }
     /**
      * @return void
      *
@@ -56,8 +65,9 @@ class PopulateCommand extends Command
 
         $this->style->section('Creating Admin User');
 
-        dump($_ENV);
-
+        if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
+            $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
+        }
         $this->style->success('Command ran successfully');
 
         return Command::SUCCESS;
@@ -133,6 +143,58 @@ class PopulateCommand extends Command
 
             $this->style->text(sprintf('Added new role: %s', $role->handle));
         }
+    }
+
+    private function createAdminUser(): void
+    {
+        $this->style->section('Creating Admin User');
+
+        if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
+            $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
+            return;
+        }
+
+        if ($this->userClass === '') {
+            $this->style->warning('Skipping Admin User creation. Please add: security.userClass to your applications config.yaml file');
+            return;
+        }
+
+        if (!is_subclass_of(Aurora::class, $this->userClass)) {
+            $this->style->warning('Skipping Admin User creation. Specified user class is not a subclass of Aurora');
+            return;
+        }
+
+        $existingUser = $this->userClass::select()->whereIs($this->userClass::getSecurityIdentifier(), $_ENV['ADMIN_EMAIL'])->get();
+
+        if ($existingUser) {
+            $this->style->warning('Skipping Admin User creation. User with that email address already exists.');
+            return;
+        }
+
+        $adminRoles = explode(',', $_ENV['ADMIN_ROLES']);
+
+        $roles = new Collection();
+
+        foreach ($adminRoles as $roleHandle) {
+            $existingRole = Role::select()->whereIs('handle', $roleHandle)->get();
+
+            if ($existingRole) {
+                $roles->add($existingRole);
+            }
+        }
+
+        if ($roles->isEmpty()) {
+            $this->style->warning('Will not create admin user without valid roles');
+            return;
+        }
+
+        $this->userClass::create([
+            'password' => Password::hash($_ENV['ADMIN_PASSWORD']),
+            'emailAddress' => $_ENV['ADMIN_EMAIL'],
+            'roles' => $roles,
+        ])->save();
+
+        $this->style->success('Admin User Created');
     }
 
     /**
