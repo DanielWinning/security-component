@@ -54,6 +54,8 @@ class PopulateCommand extends Command
         $this->createPermissions();
         $this->createRoles();
 
+        $this->style->success('Command ran successfully');
+
         return Command::SUCCESS;
     }
 
