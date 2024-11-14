@@ -143,8 +143,8 @@ class PopulateCommand extends Command
     {
         $this->style->section('Creating Admin User');
 
-        if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
-            $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
+        if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_USERNAME']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
+            $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_USERNAME, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
             return;
         }
 
@@ -183,6 +183,7 @@ class PopulateCommand extends Command
         }
 
         $this->userClass::create([
+            'username' => $_ENV['ADMIN_USERNAME'],
             'password' => Password::hash($_ENV['ADMIN_PASSWORD']),
             'emailAddress' => $_ENV['ADMIN_EMAIL'],
             'roles' => $roles,
