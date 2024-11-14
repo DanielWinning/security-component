@@ -54,6 +54,10 @@ class PopulateCommand extends Command
         $this->createPermissions();
         $this->createRoles();
 
+        $this->style->section('Creating Admin User');
+
+        dump($_ENV);
+
         $this->style->success('Command ran successfully');
 
         return Command::SUCCESS;
