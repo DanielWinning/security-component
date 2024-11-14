@@ -144,7 +144,17 @@ class SecurityController extends LumaController
 
                         $user->save();
 
-                        Luma::getAuthenticator()->login($data['emailAddress'], $data['password']);
+                        $login = Luma::getAuthenticator()->authenticate($data['emailAddress'], $data['password']);
+
+                        $this->addFlashMessage(
+                            new FlashMessage('Registration complete. You are now logged into your account.'),
+                            FlashMessage::SUCCESS
+                        );
+
+                        if ($login->isAuthenticated()) {
+                            DatabaseSessionManager::regenerate();
+                            DatabaseSessionManager::setSessionItem('user', $login->getUser());
+                        }
                     }
 
                     return $this->redirect('/');
