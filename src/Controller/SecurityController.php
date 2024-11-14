@@ -3,12 +3,14 @@
 namespace Luma\SecurityComponent\Controller;
 
 use Luma\AuroraDatabase\Model\Aurora;
+use Luma\AuroraDatabase\Utils\Collection;
 use Luma\Framework\Controller\LumaController;
 use Luma\Framework\Luma;
 use Luma\Framework\Messages\FlashMessage;
 use Luma\HttpComponent\Request;
 use Luma\HttpComponent\Response;
 use Luma\SecurityComponent\Authentication\Password;
+use Luma\SecurityComponent\Entity\Role;
 use Luma\SecurityComponent\Form\LoginForm;
 use Luma\SecurityComponent\Form\RegistrationForm;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
@@ -141,6 +143,9 @@ class SecurityController extends LumaController
                             $this->userClass::getSecurityIdentifier() => $data[$this->userClass::getSecurityIdentifier()],
                             'username' => $data['username'],
                             'password' => Password::hash($data['password']),
+                            'roles' => new Collection([
+                                Role::select()->whereIs('handle', 'user')->get(),
+                            ]),
                         ]);
 
                         $user->save();
