@@ -154,11 +154,6 @@ class PopulateCommand extends Command
             return;
         }
 
-        if (!is_subclass_of(Aurora::class, $this->userClass)) {
-            $this->style->warning('Skipping Admin User creation. Specified user class is not a subclass of Aurora');
-            return;
-        }
-
         $existingUser = $this->userClass::select()->whereIs($this->userClass::getSecurityIdentifier(), $_ENV['ADMIN_EMAIL'])->get();
 
         if ($existingUser) {
