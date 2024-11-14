@@ -8,6 +8,7 @@ use Luma\Framework\Luma;
 use Luma\Framework\Messages\FlashMessage;
 use Luma\HttpComponent\Request;
 use Luma\HttpComponent\Response;
+use Luma\SecurityComponent\Authentication\Password;
 use Luma\SecurityComponent\Form\LoginForm;
 use Luma\SecurityComponent\Form\RegistrationForm;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
@@ -139,22 +140,17 @@ class SecurityController extends LumaController
                         $user = $this->userClass::create([
                             $this->userClass::getSecurityIdentifier() => $data[$this->userClass::getSecurityIdentifier()],
                             'username' => $data['username'],
-                            'password' => $data['password'],
+                            'password' => Password::hash($data['password']),
                         ]);
 
                         $user->save();
 
-                        $login = Luma::getAuthenticator()->authenticate($data['emailAddress'], $data['password']);
+                        Luma::getAuthenticator()->login($data['emailAddress'], $data['password']);
 
                         $this->addFlashMessage(
                             new FlashMessage('Registration complete. You are now logged into your account.'),
                             FlashMessage::SUCCESS
                         );
-
-                        if ($login->isAuthenticated()) {
-                            DatabaseSessionManager::regenerate();
-                            DatabaseSessionManager::setSessionItem('user', $login->getUser());
-                        }
                     }
 
                     return $this->redirect('/');
