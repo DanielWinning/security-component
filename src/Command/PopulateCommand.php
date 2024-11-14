@@ -8,6 +8,7 @@ use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
 use Luma\Framework\Classes\Helper\DatabaseConnectionHelper;
 use Luma\Framework\Luma;
+use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 use Luma\SecurityComponent\Authentication\Password;
 use Luma\SecurityComponent\Entity\Permission;
 use Luma\SecurityComponent\Entity\Role;
@@ -22,11 +23,13 @@ class PopulateCommand extends Command
 {
     private SymfonyStyle $style;
     private \stdClass $data;
-    private string $userClass;
+    private string $userClassString = 'App\Entity\User';
+    private UserInterface $userClass;
 
     public function __construct()
     {
-        $this->userClass = Luma::getConfigParam('security.userClass');
+        $this->userClass = new $this->userClassString();
+
         parent::__construct();
     }
     /**
@@ -139,17 +142,15 @@ class PopulateCommand extends Command
         }
     }
 
+    /**
+     * @return void
+     */
     private function createAdminUser(): void
     {
         $this->style->section('Creating Admin User');
 
         if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_USERNAME']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
             $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_USERNAME, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
-            return;
-        }
-
-        if ($this->userClass === '') {
-            $this->style->warning('Skipping Admin User creation. Please add: security.userClass to your applications config.yaml file');
             return;
         }
 
