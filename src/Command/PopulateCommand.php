@@ -62,13 +62,7 @@ class PopulateCommand extends Command
 
         $this->createPermissions();
         $this->createRoles();
-
-        $this->style->section('Creating Admin User');
-
-        if (!isset($_ENV['ADMIN_EMAIL']) || !isset($_ENV['ADMIN_PASSWORD']) || !isset($_ENV['ADMIN_ROLES'])) {
-            $this->style->warning('Skipping Admin User creation. Please add: ADMIN_EMAIL, ADMIN_PASSWORD and ADMIN_ROLES to your applications .env file');
-        }
-        $this->style->success('Command ran successfully');
+        $this->createAdminUser();
 
         return Command::SUCCESS;
     }
