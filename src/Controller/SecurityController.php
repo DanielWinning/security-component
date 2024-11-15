@@ -9,6 +9,7 @@ use Luma\Framework\Luma;
 use Luma\Framework\Messages\FlashMessage;
 use Luma\HttpComponent\Request;
 use Luma\HttpComponent\Response;
+use Luma\RoutingComponent\Attribute\RequireUnauthenticated;
 use Luma\SecurityComponent\Authentication\Password;
 use Luma\SecurityComponent\Entity\Role;
 use Luma\SecurityComponent\Form\LoginForm;
@@ -42,6 +43,7 @@ class SecurityController extends LumaController
      *
      * @return Response
      */
+    #[RequireUnauthenticated(redirectPath: '/')]
     public function login(Request $request): Response
     {
         $form = new LoginForm([]);
@@ -108,6 +110,7 @@ class SecurityController extends LumaController
      *
      * @return Response
      */
+    #[RequireUnauthenticated(redirectPath: '/')]
     public function register(Request $request): Response
     {
         $form = new RegistrationForm();
