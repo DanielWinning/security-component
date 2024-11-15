@@ -51,6 +51,8 @@ class DatabaseAuthenticator extends Authenticator
     #[\Override]
     public function logout(?string $redirectPath = null): void
     {
+        DatabaseSessionManager::end();
+        DatabaseSessionManager::start();
         DatabaseSessionManager::regenerate();
 
         if ($redirectPath) {
