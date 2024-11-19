@@ -4,6 +4,9 @@
 ### Added
 - Added `SecurityController` to provide login/registration functionality from the package
 - Added `lumax/form-component`
+- Added `PopulateCommand` for populating initial security data
+- Added `Role` and `Permission` entities
+- Increased session duration
 
 ### Changed
 - N/A

@@ -11,11 +11,9 @@ class DatabaseSessionManager implements SessionManagerInterface
      */
     public static function start(): void
     {
-        // Set session lifetime
         ini_set('session.gc_maxlifetime', 7200);
         ini_set('session.cookie_lifetime', 7200);
 
-        // Ensure cookies are secure and HTTP-only
         session_set_cookie_params([
             'lifetime' => 7200,
             'secure' => true,
