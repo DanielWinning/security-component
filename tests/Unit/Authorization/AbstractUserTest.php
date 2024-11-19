@@ -6,7 +6,6 @@ use Luma\SecurityComponent\Entity\Role;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
 
-
 class AbstractUserTest extends SecurityComponentUnitTest
 {
     /**
