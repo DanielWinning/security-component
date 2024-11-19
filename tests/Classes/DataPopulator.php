@@ -62,6 +62,8 @@ class DataPopulator
      * @param array $roles
      *
      * @return void
+     *
+     * @throws \ReflectionException
      */
     private function saveUser(string $username, string $emailAddress, string $password, array $roles): void
     {

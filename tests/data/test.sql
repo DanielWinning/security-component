@@ -1,18 +1,13 @@
 DROP SCHEMA IF EXISTS Security;
 DROP SCHEMA IF EXISTS SecurityComponentTest;
 
-CREATE SCHEMA SecurityComponentTest;
 CREATE SCHEMA Security;
 
 USE Security;
 
-DROP TABLE IF EXISTS tblRoleUser;
+DROP TABLE IF EXISTS tblRoleUser, tblPermissionRole, ublRole, ublPermission;
 
-USE SecurityComponentTest;
-
-DROP TABLE IF EXISTS User, AddressDetails;
-
-CREATE TABLE User (
+CREATE TABLE tblUser (
     intUserId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     strUsername VARCHAR(60) NOT NULL,
     strEmailAddress VARCHAR(255) NOT NULL,
@@ -21,19 +16,15 @@ CREATE TABLE User (
     UNIQUE KEY (strEmailAddress)
 );
 
-CREATE TABLE AddressDetails (
+CREATE TABLE tblAddressDetails (
     intAddressDetailsId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     strAddressLineOne VARCHAR(255) NOT NULL,
     strAddressLineTwo VARCHAR(255),
     strCity VARCHAR(60) NOT NULL,
     strPostcode VARCHAR(9) NOT NULL,
     intUserId INT(11) UNSIGNED NOT NULL,
-    FOREIGN KEY (intUserId) REFERENCES User(intUserId)
+    FOREIGN KEY (intUserId) REFERENCES tblUser(intUserId)
 );
-
-USE Security;
-
-DROP TABLE IF EXISTS tblPermissionRole, ublRole, ublPermission;
 
 CREATE TABLE ublRole (
     intRoleId INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +49,7 @@ CREATE TABLE tblPermissionRole (
 CREATE TABLE tblRoleUser (
     intUserId INT(11) UNSIGNED NOT NULL,
     intRoleId INT(11) UNSIGNED NOT NULL,
-    FOREIGN KEY (intUserId) REFERENCES SecurityComponentTest.user(intUserId),
+    FOREIGN KEY (intUserId) REFERENCES tblUser(intUserId),
     FOREIGN KEY (intRoleId) REFERENCES ublRole(intRoleId),
     UNIQUE KEY (intUserId, intRoleId)
 );
