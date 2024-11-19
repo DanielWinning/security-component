@@ -1,8 +1,8 @@
 <?php
 
-namespace Authorization;
+namespace Luma\Tests\Unit\Authorization;
 
-use Luma\Tests\Classes\Role;
+use Luma\SecurityComponent\Entity\Role;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
 

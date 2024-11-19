@@ -1,5 +1,30 @@
 # Luma | Security Component Changelog
 
+## [2.0.0] - 2024-11-19
+### Added
+- Added `SecurityController` to provide login/registration functionality from the package
+- Added `lumax/form-component`
+- Added `PopulateCommand` for populating initial security data
+- Added `Role` and `Permission` entities
+- Increased session duration
+
+### Changed
+- N/A
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.6.0] - 2024-08-23
 ### Added
 - N/A

@@ -11,16 +11,26 @@ class DatabaseSessionManager implements SessionManagerInterface
      */
     public static function start(): void
     {
+        ini_set('session.gc_maxlifetime', 7200);
+        ini_set('session.cookie_lifetime', 7200);
+
+        session_set_cookie_params([
+            'lifetime' => 7200,
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
         session_start();
     }
 
     /**
+     * @param bool $deleteOldSession
+     *
      * @return void
      */
-    public static function regenerate(): void
+    public static function regenerate(bool $deleteOldSession = true): void
     {
-        $_SESSION = [];
-        session_regenerate_id(true);
+        session_regenerate_id($deleteOldSession);
     }
 
     /**

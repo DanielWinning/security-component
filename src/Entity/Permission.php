@@ -1,6 +1,6 @@
 <?php
 
-namespace Luma\Tests\Classes;
+namespace Luma\SecurityComponent\Entity;
 
 use Luma\AuroraDatabase\Attributes\Column;
 use Luma\AuroraDatabase\Attributes\Identifier;
@@ -9,7 +9,7 @@ use Luma\AuroraDatabase\Attributes\Table;
 use Luma\SecurityComponent\Authorization\AbstractPermission;
 
 #[Schema('Security')]
-#[Table('tblPermission')]
+#[Table('ublPermission')]
 class Permission extends AbstractPermission
 {
     #[Identifier]

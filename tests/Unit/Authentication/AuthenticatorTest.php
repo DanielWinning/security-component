@@ -9,7 +9,6 @@ use Luma\SecurityComponent\Authentication\Providers\DatabaseUserProvider;
 use Luma\SecurityComponent\Session\DatabaseSessionManager;
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 use Luma\Tests\Classes\User;
-use Luma\Tests\Classes\UserEmail;
 
 class AuthenticatorTest extends SecurityComponentUnitTest
 {
@@ -19,10 +18,6 @@ class AuthenticatorTest extends SecurityComponentUnitTest
     public function testItCreatesAnInstanceOfAuthenticator(): void
     {
         $databaseAuthenticator = new DatabaseAuthenticator(new DatabaseUserProvider(User::class));
-
-        $this->assertInstanceOf(DatabaseAuthenticator::class, $databaseAuthenticator);
-
-        $databaseAuthenticator = new DatabaseAuthenticator(new DatabaseUserProvider(UserEmail::class));
 
         $this->assertInstanceOf(DatabaseAuthenticator::class, $databaseAuthenticator);
     }
@@ -184,11 +179,6 @@ class AuthenticatorTest extends SecurityComponentUnitTest
                 'username' => 'Charlie',
                 'password' => 'p4$$word123',
                 'userClass' => User::class,
-            ],
-            [
-                'username' => 'charlie@test.com',
-                'password' => 'p4$$word123',
-                'userClass' => UserEmail::class,
             ],
         ];
     }

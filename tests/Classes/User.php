@@ -11,9 +11,10 @@ use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Authentication\AbstractUser;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;
+use Luma\SecurityComponent\Entity\Role;
 
-#[Schema('SecurityComponentTest')]
-#[Table('User')]
+#[Schema('Security')]
+#[Table('tblUser')]
 class User extends AbstractUser implements UserInterface
 {
     #[Identifier]

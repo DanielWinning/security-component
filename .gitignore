@@ -4,5 +4,3 @@
 /tests/data/.env
 /.phpunit.result.cache
 /coverage
-/test.php
-/public

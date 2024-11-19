@@ -1,10 +1,11 @@
 <?php
 
-namespace Authorization;
+namespace Luma\Tests\Unit\Authorization;
 
 use Luma\AuroraDatabase\Utils\Collection;
-use Luma\Tests\Classes\Permission;
-use Luma\Tests\Classes\Role;
+use Luma\SecurityComponent\Entity\Permission;
+use Luma\SecurityComponent\Entity\Role;
+
 use Luma\Tests\Classes\SecurityComponentUnitTest;
 
 class AbstractRoleTest extends SecurityComponentUnitTest
@@ -22,10 +23,12 @@ class AbstractRoleTest extends SecurityComponentUnitTest
             ->whereIs('handle', 'access_all_areas')
             ->get();
 
-        $this->assertInstanceOf(Collection::class, $role->getPermissions());
-        $this->assertTrue($role->hasPermission($accessAllAreasPermission));
-        $this->assertTrue($role->hasPermission('edit_user'));
-        $this->assertFalse($role->hasPermission('unknown'));
+        self::assertEquals('Administrator', $role->getName());
+        self::assertEquals('admin', $role->getHandle());
+        self::assertInstanceOf(Collection::class, $role->getPermissions());
+        self::assertTrue($role->hasPermission($accessAllAreasPermission));
+        self::assertTrue($role->hasPermission('edit_user'));
+        self::assertFalse($role->hasPermission('unknown'));
     }
 
     /**
@@ -42,10 +45,10 @@ class AbstractRoleTest extends SecurityComponentUnitTest
             'handle' => 'run_tests',
         ]);
 
-        $this->assertFalse($role->hasPermission('run_tests'));
+        self::assertFalse($role->hasPermission('run_tests'));
 
         $role->addPermission($runTestsPermission);
 
-        $this->assertTrue($role->hasPermission('run_tests'));
+        self::assertTrue($role->hasPermission('run_tests'));
     }
 }
