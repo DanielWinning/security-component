@@ -7,6 +7,8 @@ use Luma\AuroraDatabase\DatabaseConnection;
 use Luma\AuroraDatabase\Model\Aurora;
 use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Authentication\Password;
+use Luma\SecurityComponent\Entity\Permission;
+use Luma\SecurityComponent\Entity\Role;
 
 class DataPopulator
 {
@@ -22,6 +24,8 @@ class DataPopulator
      * @param array $data
      *
      * @return void
+     *
+     * @throws \ReflectionException
      */
     public function populate(array $data): void
     {

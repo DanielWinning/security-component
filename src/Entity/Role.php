@@ -18,10 +18,10 @@ class Role extends AbstractRole
     #[Column('intRoleId')]
     protected int $id;
 
-    #[Column('strName')]
+    #[Column('strRoleName')]
     protected string $name;
 
-    #[Column('strHandle')]
+    #[Column('strRoleHandle')]
     protected string $handle;
 
     #[AuroraCollection(

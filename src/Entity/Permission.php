@@ -16,10 +16,10 @@ class Permission extends AbstractPermission
     #[Column('intPermissionId')]
     protected int $id;
 
-    #[Column('strName')]
+    #[Column('strPermissionName')]
     protected string $name;
 
-    #[Column('strHandle')]
+    #[Column('strPermissionHandle')]
     protected string $handle;
 
     /**
