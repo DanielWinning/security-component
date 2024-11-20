@@ -1,5 +1,11 @@
 # Luma | Security Component Changelog
 
+## [2.0.1] - 2024-11-20
+### Changed
+- Fetch roles when refreshing the logged-in user
+
+---
+
 ## [2.0.0] - 2024-11-19
 ### Added
 - Added `SecurityController` to provide login/registration functionality from the package
