@@ -7,6 +7,7 @@ use Luma\AuroraDatabase\Utils\Collection;
 use Luma\SecurityComponent\Attributes\SecurityIdentifier;
 use Luma\SecurityComponent\Authentication\Interface\UserInterface;
 use Luma\SecurityComponent\Authorization\Interface\RoleInterface;
+use Luma\SecurityComponent\Entity\Role;
 
 abstract class AbstractUser extends Aurora implements UserInterface
 {
@@ -70,6 +71,7 @@ abstract class AbstractUser extends Aurora implements UserInterface
     {
         if (isset($_SESSION['user']) && $_SESSION['user'] instanceof Aurora) {
             $_SESSION['user'] = self::find($_SESSION['user']->getId());
+            $_SESSION['user'] = $_SESSION['user']->with([Role::class]);
         }
     }
 }
