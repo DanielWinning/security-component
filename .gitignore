@@ -4,3 +4,4 @@
 /tests/data/.env
 /.phpunit.result.cache
 /coverage
+/composer.lock

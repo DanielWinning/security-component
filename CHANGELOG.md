@@ -1,5 +1,11 @@
 # Luma | Security Component Changelog
 
+## [2.0.2] - 2025-01-27
+### Changed
+- Update dependencies
+
+---
+
 ## [2.0.1] - 2024-11-20
 ### Changed
 - Fetch roles when refreshing the logged-in user
