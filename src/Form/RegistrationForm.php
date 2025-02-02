@@ -70,7 +70,8 @@ class RegistrationForm extends AbstractForm
             'validationError' => 'Passwords do not match',
         ]));
         $this->addFormField(new SubmitButton([
-            'name' => 'Register',
+            'name' => 'register',
+            'label' => 'Register',
             'id' => 'register',
         ]));
     }
