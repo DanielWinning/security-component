@@ -1,5 +1,11 @@
 # Luma | Security Component Changelog
 
+## [2.0.3] - 2025-02-02
+### Changed
+- Add `label` to Login and Registration forms
+
+---
+
 ## [2.0.2] - 2025-01-27
 ### Changed
 - Update dependencies

@@ -33,7 +33,8 @@ class LoginForm extends AbstractForm
             'required' => true,
         ]));
         $this->addFormField(new SubmitButton([
-            'name' => 'Log In',
+            'name' => 'login',
+            'label' => 'Log In',
             'id' => 'login-submit',
         ]));
     }
